@@ -32,6 +32,27 @@ class UserAuthServiceTest extends TestCase
         $this->assertTrue($result['success']);
     }
 
+    public function test_AddUser_InvalidPassword_ReturnsSuccessFalse() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('AddUser')->andReturn(['name' => 'John', 'email' => 'john@example.com']);
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $userData = [
+            'name' => 'John',
+            'email' => 'john@example.com',
+            'password' => 'password1', 
+        ];
+
+        $request = Request::create('/dummy', 'POST', $userData);
+
+        $result = $userAuthService->AddUser($request);
+        $this->assertFalse($result['success']);
+    }
+
 
 
 
