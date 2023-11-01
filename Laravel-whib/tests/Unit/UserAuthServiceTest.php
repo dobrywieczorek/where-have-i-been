@@ -53,6 +53,25 @@ class UserAuthServiceTest extends TestCase
         $this->assertFalse($result['success']);
     }
 
+    public function test_AddUser_NullData_ReturnsSuccessFalse() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('AddUser')->andReturn(['name' => 'John', 'email' => 'john@example.com']);
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $userData = [
+            null
+        ];
+
+        $request = Request::create('/dummy', 'POST', $userData);
+
+        $result = $userAuthService->AddUser($request);
+        $this->assertFalse($result['success']);
+    }
+
 
 
 
