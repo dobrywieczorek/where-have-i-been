@@ -114,6 +114,26 @@ class UserAuthServiceTest extends TestCase
         $this->assertFalse($result['success']);
     }
 
+    public function test_AddUserToken_ReceivesToken_ReturnsToken() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('AddUserToken')->andReturn(['authToken' => '5|1Ab2c3d4']);
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $userData = [
+            'name' => 'John',
+            'email' => 'john@example.com',
+            'password' => 'Password1', 
+        ];
+
+        $request = Request::create('/dummy', 'POST', $userData);
+
+        $result = $userAuthService->CreateUserToken($request);
+        $this->assertEquals('5|1Ab2c3d4', $result['authToken']);
+    }
 
 
 
