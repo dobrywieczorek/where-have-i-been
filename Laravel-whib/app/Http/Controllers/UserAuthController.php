@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserAuthController extends Controller
 {
@@ -25,6 +26,10 @@ class UserAuthController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
+    }
+
+    public function GetCurrentUser(Request $request){
+        return $this->_userAuthService->GetCurrentUserWithToken($request);
     }
 
     public function LoginUser(Request $request)

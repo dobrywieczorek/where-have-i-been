@@ -39,4 +39,8 @@ class UserAuthService implements IUserAuthService
         $token = $this->_userAuthRepository->AddUserToken($user);
         return $token;
     }
+
+    public function GetCurrentUserWithToken($token){
+        return $this->_userAuthRepository->GetCurrentUserWithToken($token);
+    }
 }

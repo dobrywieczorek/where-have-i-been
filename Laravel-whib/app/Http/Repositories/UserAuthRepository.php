@@ -20,4 +20,8 @@ class UserAuthRepository implements IUserAuthRepository
         $token = $user->createToken('auth_token')->plainTextToken;
         return $token;
     }
+
+    public function GetCurrentUserWithToken($token){
+        return $token->user();
+    }
 }
