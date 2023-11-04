@@ -13,9 +13,15 @@ class UserAuthController extends Controller
 {
     function __construct(private readonly IUserAuthService $_userAuthService){}
 
+    private array $rules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+    ];
+
     public function RegisterUser(Request $request)
     {
-        $user = $this->_userAuthService->AddUser($request);
+        $user = $this->_userAuthService->AddUser($request, $this->rules);
         if($user['success'] == false){
             return response()->json(['errors'=>$user['errors']], 400);
         }

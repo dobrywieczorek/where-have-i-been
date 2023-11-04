@@ -13,12 +13,7 @@ class UserAuthService implements IUserAuthService
 {
     function __construct(private readonly IUserAuthRepository $_userAuthRepository){}
 
-    public function AddUser($userData){
-        $rules = [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
-        ];
+    public function AddUser($userData, $rules){
 
         $messages = [
             'password.regex' => 'Password must contain one uppercase letter and a number',

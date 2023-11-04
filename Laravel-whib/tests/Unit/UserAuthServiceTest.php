@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class UserAuthServiceTest extends TestCase
 {
+
+    private array $rules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255',
+        'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+    ];
+
     public function test_AddUser_CorrectUser_ReturnsSuccessTrue() : void
     {
         $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
@@ -28,7 +35,7 @@ class UserAuthServiceTest extends TestCase
 
         $request = Request::create('/dummy', 'POST', $userData);
 
-        $result = $userAuthService->AddUser($request);
+        $result = $userAuthService->AddUser($request, $this->rules);
         $this->assertTrue($result['success']);
     }
 
@@ -49,7 +56,7 @@ class UserAuthServiceTest extends TestCase
 
         $request = Request::create('/dummy', 'POST', $userData);
 
-        $result = $userAuthService->AddUser($request);
+        $result = $userAuthService->AddUser($request, $this->rules);
         $this->assertFalse($result['success']);
     }
 
@@ -68,7 +75,7 @@ class UserAuthServiceTest extends TestCase
 
         $request = Request::create('/dummy', 'POST', $userData);
 
-        $result = $userAuthService->AddUser($request);
+        $result = $userAuthService->AddUser($request, $this->rules);
         $this->assertFalse($result['success']);
     }
 
@@ -89,7 +96,7 @@ class UserAuthServiceTest extends TestCase
 
         $request = Request::create('/dummy', 'POST', $userData);
 
-        $result = $userAuthService->AddUser($request);
+        $result = $userAuthService->AddUser($request, $this->rules);
         $this->assertFalse($result['success']);
     }
 
@@ -110,7 +117,7 @@ class UserAuthServiceTest extends TestCase
 
         $request = Request::create('/dummy', 'POST', $userData);
 
-        $result = $userAuthService->AddUser($request);
+        $result = $userAuthService->AddUser($request, $this->rules);
         $this->assertFalse($result['success']);
     }
 
