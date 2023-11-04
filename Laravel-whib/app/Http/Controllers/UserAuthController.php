@@ -40,18 +40,19 @@ class UserAuthController extends Controller
 
     public function LoginUser(Request $request)
     {
-        if (!Auth::attempt($request->only('email', 'password'))) {
+        if(!$request->has('email','password'))
+        {
+            return response()->json(['errors'=>"Invalid request"], 400);
+        }
+
+        $userLoginResponse = $this->_userAuthService->LoginUser($request);
+        
+        if($userLoginResponse['success']==false){
+            return response()->json(['errors'=>$userLoginResponse['errors']], 401);
+        }
+
         return response()->json([
-        'message' => 'Invalid login details'
-                ], 401);
-            }
-
-        $user = User::where('email', $request['email'])->firstOrFail();
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-                'access_token' => $token,
+                'access_token' => $userLoginResponse['access_token'],
                 'token_type' => 'Bearer',
         ]);
     }
