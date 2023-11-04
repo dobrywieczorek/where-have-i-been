@@ -73,4 +73,19 @@ class UserAuthFeatureTest extends TestCase
         $response->assertStatus(401);
     }
 
+    public function test_LoginRoute_MissingParameter_400Response(): void
+    {
+        $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $response = $this->post('/api/login', [
+            'password' => 'Password123',
+        ]);
+    
+        $response->assertStatus(400);
+    }
+
 }
