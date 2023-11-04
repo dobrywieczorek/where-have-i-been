@@ -8,4 +8,5 @@ interface IUserAuthRepository
     function AddUser($userData);
     function GetCurrentUserWithToken($token);
     function GetUserWithEmail($email);
+    function TryAuthUser($userDetails) : bool;
 }
