@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\ErrorHandler\Debug;
 
 class UserAuthController extends Controller
 {
@@ -21,6 +22,13 @@ class UserAuthController extends Controller
 
     public function RegisterUser(Request $request)
     {
+
+        if(!$request->has('name','email','password'))
+        {
+            return response()->json(['errors'=>"Invalid request"], 400);
+        }
+
+
         $user = $this->_userAuthService->AddUser($request, $this->rules);
         if($user['success'] == false){
             return response()->json(['errors'=>$user['errors']], 400);
