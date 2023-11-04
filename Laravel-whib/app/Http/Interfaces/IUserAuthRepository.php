@@ -7,4 +7,5 @@ interface IUserAuthRepository
     function AddUserToken($user);
     function AddUser($userData);
     function GetCurrentUserWithToken($token);
+    function GetUserWithEmail($email);
 }

@@ -24,4 +24,9 @@ class UserAuthRepository implements IUserAuthRepository
     public function GetCurrentUserWithToken($token){
         return $token->user();
     }
+
+    public function GetUserWithEmail($email){
+        return User::where('email', $email)->firstOrFail();
+    }
+
 }
