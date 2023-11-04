@@ -105,4 +105,20 @@ class UserAuthFeatureTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_WhoAmIRoute_IncorrectToken_500Response(): void
+    {
+        $registerResponse = $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $token = $registerResponse['access_token'];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . '12345678',
+        ])->post('/api/whoami');
+    
+        $response->assertStatus(500);
+    }
 }
