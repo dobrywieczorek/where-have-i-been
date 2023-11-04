@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Interfaces\IUserAuthService;
 use App\Http\Interfaces\IUserAuthRepository;
+use Illuminate\Support\Facades\Auth;
 
 class UserAuthService implements IUserAuthService
 {
@@ -37,5 +38,15 @@ class UserAuthService implements IUserAuthService
 
     public function GetCurrentUserWithToken($token){
         return $this->_userAuthRepository->GetCurrentUserWithToken($token);
+    }
+
+    public function LoginUser($userDetails)
+    {
+        if($this->_userAuthRepository->TryAuthUser($userDetails))
+            return ['success' => false, 'errors' => "Invalid login details"];
+
+        $user = $this->_userAuthRepository->GetUserWithEmail($userDetails['email']);    
+        $token = $this->_userAuthRepository->AddUserToken($user);
+        return ['success' => true, 'access_token' => $token];
     }
 }
