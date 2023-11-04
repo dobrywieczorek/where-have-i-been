@@ -20,4 +20,15 @@ class UserAuthFeatureTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_RegisterRoute_NoName_400Response(): void
+    {
+        $response = $this->post('/api/register', [
+            'name' => '',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $response->assertStatus(400);
+    }
+
 }
