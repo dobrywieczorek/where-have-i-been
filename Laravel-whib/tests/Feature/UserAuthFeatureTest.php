@@ -40,4 +40,21 @@ class UserAuthFeatureTest extends TestCase
 
         $response->assertStatus(400);
     }
+
+    public function test_LoginRoute_CorrectLogin_200Response(): void
+    {
+        $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $response = $this->post('/api/login', [
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+    
+        $response->assertStatus(200);
+    }
+
 }
