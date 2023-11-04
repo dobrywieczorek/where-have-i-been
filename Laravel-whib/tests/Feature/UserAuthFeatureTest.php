@@ -31,4 +31,13 @@ class UserAuthFeatureTest extends TestCase
         $response->assertStatus(400);
     }
 
+    public function test_RegisterRoute_MissingParameter_400Response(): void
+    {
+        $response = $this->post('/api/register', [
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $response->assertStatus(400);
+    }
 }
