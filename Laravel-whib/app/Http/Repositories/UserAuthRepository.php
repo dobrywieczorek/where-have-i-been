@@ -31,6 +31,6 @@ class UserAuthRepository implements IUserAuthRepository
     }
 
     public function TryAuthUser($userDetails) : bool{
-        return !Auth::attempt($userDetails->only('email', 'password'));
+        return Auth::attempt($userDetails->only('email', 'password'));
     }
 }
