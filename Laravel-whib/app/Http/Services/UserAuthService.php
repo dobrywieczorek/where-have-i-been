@@ -42,7 +42,12 @@ class UserAuthService implements IUserAuthService
 
     public function LoginUser($userDetails)
     {
-        if($this->_userAuthRepository->TryAuthUser($userDetails))
+        if(!$userDetails->has('email','password'))
+        {
+            return ['success' => false, 'errors' => "Invalid login details"];
+        }
+
+        if(!$this->_userAuthRepository->TryAuthUser($userDetails))
             return ['success' => false, 'errors' => "Invalid login details"];
 
         $user = $this->_userAuthRepository->GetUserWithEmail($userDetails['email']);    
