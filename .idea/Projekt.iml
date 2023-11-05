@@ -123,6 +123,7 @@
       <excludeFolder url="file://$MODULE_DIR$/Laravel-whib/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/Laravel-whib/vendor/laravel/socialite" />
       <excludeFolder url="file://$MODULE_DIR$/Laravel-whib/vendor/league/oauth1-client" />
+      <excludeFolder url="file://$MODULE_DIR$/Laravel-whib/vendor/laravel/ui" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

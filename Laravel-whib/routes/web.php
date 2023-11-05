@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FacebookController;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +20,6 @@ Route::get('/', function () {
 });
 
 
+// Facebook login
+route::get('auth/facebook',[FacebookController::class, 'facebookpage']);;
+route::get('auth/facebook/callback',[FacebookController::class, 'facebookredirect']);;
