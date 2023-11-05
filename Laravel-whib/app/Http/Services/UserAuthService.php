@@ -8,17 +8,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Interfaces\IUserAuthService;
 use App\Http\Interfaces\IUserAuthRepository;
+use Illuminate\Support\Facades\Auth;
 
 class UserAuthService implements IUserAuthService
 {
     function __construct(private readonly IUserAuthRepository $_userAuthRepository){}
 
-    public function AddUser($userData){
-        $rules = [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
-        ];
+    public function AddUser($userData, $rules){
 
         $messages = [
             'password.regex' => 'Password must contain one uppercase letter and a number',
@@ -38,5 +34,24 @@ class UserAuthService implements IUserAuthService
     public function CreateUserToken($user){
         $token = $this->_userAuthRepository->AddUserToken($user);
         return $token;
+    }
+
+    public function GetCurrentUserWithToken($token){
+        return $this->_userAuthRepository->GetCurrentUserWithToken($token);
+    }
+
+    public function LoginUser($userDetails)
+    {
+        if(!$userDetails->has('email','password'))
+        {
+            return ['success' => false, 'errors' => "Invalid login details"];
+        }
+
+        if(!$this->_userAuthRepository->TryAuthUser($userDetails))
+            return ['success' => false, 'errors' => "Invalid login details"];
+
+        $user = $this->_userAuthRepository->GetUserWithEmail($userDetails['email']);    
+        $token = $this->_userAuthRepository->AddUserToken($user);
+        return ['success' => true, 'access_token' => $token];
     }
 }

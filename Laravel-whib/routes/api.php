@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserAuthController;
 Route::post('/register', [UserAuthController::class, 'RegisterUser']);
+Route::post('/login', [UserAuthController::class, 'LoginUser']);
+Route::post('/whoami', [UserAuthController::class, 'GetCurrentUser'])->middleware('auth:sanctum');
