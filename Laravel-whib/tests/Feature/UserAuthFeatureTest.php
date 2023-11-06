@@ -163,4 +163,23 @@ class UserAuthFeatureTest extends TestCase
         $response->assertStatus(400);
     }
 
+    public function test_EditUserRoute_InvalidPassword_401Response(): void
+    {
+        $registerResponse = $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $token = $registerResponse['access_token'];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('/api/edituser',[
+            'name' => 'John Doe',
+            'password' => 'Password',
+        ]);
+
+        $response->assertStatus(401);
+    }
 }
