@@ -67,7 +67,7 @@ class UserAuthController extends Controller
 
     public function EditUser(Request $request)
     {
-        if(!$request->has('name','password'))
+        if(!$request->has('name', 'description', 'password'))
         {
             return response()->json(['errors'=>"Invalid request"], 400);
         }
@@ -77,9 +77,10 @@ class UserAuthController extends Controller
         $editRules = [
             'name' => 'required|string|max:255',
             'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+            'description' => 'string|max:255'
         ];
 
-        $newUser = $this->_userAuthService->UpdateUser($user, $request->only(['name', 'password']), $editRules);
+        $newUser = $this->_userAuthService->UpdateUser($user, $request->only(['name', 'description', 'password']), $editRules);
 
         if($newUser['success'] == false){
             return response()->json(['errors'=>$newUser['errors']], 401);
