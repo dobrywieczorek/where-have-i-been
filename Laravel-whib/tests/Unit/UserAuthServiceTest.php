@@ -219,6 +219,7 @@ class UserAuthServiceTest extends TestCase
         $userData = [
             'name' => 'John',
             'password' => 'Password1', 
+            'description' => 'blabla'
         ];
 
         $rulesUpdate = [
@@ -232,7 +233,7 @@ class UserAuthServiceTest extends TestCase
         $this->assertTrue($result['success']);
     }
 
-    public function test_UpdateUser_InvalidData_ReturnsSuccessTrue() : void
+    public function test_UpdateUser_InvalidData_ReturnsSuccessFalse() : void
     {
         $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
 
@@ -257,7 +258,7 @@ class UserAuthServiceTest extends TestCase
         $this->assertFalse($result['success']);
     }
 
-    public function test_UpdateUser_MissingPassword_ReturnsSuccessTrue() : void
+    public function test_UpdateUser_MissingPassword_ReturnsSuccessFalse() : void
     {
         $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
 
