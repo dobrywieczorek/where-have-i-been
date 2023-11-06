@@ -138,6 +138,7 @@ class UserAuthFeatureTest extends TestCase
         ])->post('/api/edituser',[
             'name' => 'John Doe',
             'password' => 'Password123',
+            'description' => 'blabla'
         ]);
 
         $response->assertStatus(200);
@@ -158,6 +159,7 @@ class UserAuthFeatureTest extends TestCase
             'Authorization' => 'Bearer ' . $token,
         ])->post('/api/edituser',[
             'name' => 'John Doe',
+            'description' => 'blabla'
         ]);
 
         $response->assertStatus(400);
@@ -178,6 +180,7 @@ class UserAuthFeatureTest extends TestCase
         ])->post('/api/edituser',[
             'name' => 'John Doe',
             'password' => 'Password',
+            'description' => 'blabla'
         ]);
 
         $response->assertStatus(401);
