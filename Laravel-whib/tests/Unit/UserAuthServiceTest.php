@@ -257,5 +257,29 @@ class UserAuthServiceTest extends TestCase
         $this->assertFalse($result['success']);
     }
 
+    public function test_UpdateUser_MissingPassword_ReturnsSuccessTrue() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('UpdateUser')->andReturn(['name' => 'John', 'email' => 'john@example.com']);
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $userData = [
+            'name' => 'John',
+        ];
+
+        $rulesUpdate = [
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+        ];
+
+        $request = Request::create('/dummy', 'POST', $userData);
+
+        $result = $userAuthService->UpdateUser($request, $userData, $rulesUpdate);
+        $this->assertFalse($result['success']);
+    }
+
 }
 
