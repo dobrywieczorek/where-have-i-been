@@ -67,7 +67,7 @@ class UserAuthController extends Controller
 
     public function EditUser(Request $request)
     {
-        if(!$request->has('name', 'description', 'password'))
+        if(!$request->has('name', 'password'))
         {
             return response()->json(['errors'=>"Invalid request"], 400);
         }
