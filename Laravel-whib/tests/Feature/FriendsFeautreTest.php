@@ -149,4 +149,35 @@ class FriendsFeautreTest extends TestCase
         $response->assertStatus(401);
     }
 
+    public function test_DeleteFriendRoute_IdZero_401Response(): void
+    {
+
+        $register1 = $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $register2 = $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john12@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $token = $register1['access_token'];
+
+        $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('/api/addfriend',[
+            'friend_id' => '2',
+        ]);
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('/api/deletefriend',[
+            'friend_id' => '0',
+        ]);
+
+        $response->assertStatus(401);
+    }
 }
