@@ -296,5 +296,18 @@ class UserAuthServiceTest extends TestCase
         $this->assertTrue($result['success']);
     }
 
+    public function test_GetUsersByName_IncorrectData_ReturnsSuccessFalse() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('GetUsersByName')->andReturn();
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $result = $userAuthService->GetUsersByName('');
+        $this->assertFalse($result['success']);
+    }
+
 }
 
