@@ -24,4 +24,17 @@ class FriendsServiceTest extends TestCase
         $this->assertTrue($result['success']);
     }
 
+    public function test_AddFriend_AlreadyFriends_ReturnsSuccessFalse() : void
+    {
+        $friendsRepository = Mockery::mock(IFriendsRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $friendsRepository->shouldReceive('AlreadyFriends')->andReturn(true);
+
+        $friendsService = new FriendsService($friendsRepository);
+
+        $result = $friendsService->AddFriend(1, 2);
+        $this->assertFalse($result['success']);
+    }
+
 }
