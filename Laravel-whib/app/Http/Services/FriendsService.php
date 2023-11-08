@@ -14,6 +14,12 @@ class FriendsService implements IFriendsService
     }
     public function AddFriend($userId, $friendId)
     {
+
+        if($userId == 0 || $friendId == 0)
+        {
+            return ['success' => false, 'errors' => "Id can't be 0"];
+        }
+
         if($userId == $friendId)
         {
             return ['success' => false, 'errors' => "User can't befriend himself"];
@@ -30,6 +36,11 @@ class FriendsService implements IFriendsService
 
     public function DeleteFriend($userId, $friendId)
     {
+        if($userId == 0 || $friendId == 0)
+        {
+            return ['success' => false, 'errors' => "Id can't be 0"];
+        }
+
         if($userId == $friendId)
         {
             return ['success' => false, 'errors' => "User can't befriend himself"];
