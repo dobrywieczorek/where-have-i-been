@@ -60,4 +60,29 @@ class FriendsFeautreTest extends TestCase
         $response->assertStatus(401);
     }
 
+    public function test_AddFriendRoute_MissingParameter_400Response(): void
+    {
+
+        $register1 = $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $register2 = $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john12@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $token = $register1['access_token'];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('/api/addfriend',[
+        ]);
+
+        $response->assertStatus(400);
+    }
+
 }
