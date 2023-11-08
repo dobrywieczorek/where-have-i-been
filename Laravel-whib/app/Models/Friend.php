@@ -11,6 +11,11 @@ class Friend extends Model
 
     protected $table = 'friends';
 
+    protected $fillable = [
+        'user_id',
+        'friend_with_user_id',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
