@@ -27,4 +27,8 @@ class FriendsRepository implements IFriendsRepository
         }
     }
 
+    public function AlreadyFriends($userId, $friendId) : bool {
+        $result = Friend::where('user_id', $userId)->where('friend_with_user_id', $friendId)->exists();
+        return $result;
+    }
 }
