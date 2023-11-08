@@ -17,4 +17,14 @@ class FriendsRepository implements IFriendsRepository
         return $friendship;
     }
 
+    public function DeleteFriend($userId, $friendId)
+    {
+        $friendship = Friend::where('user_id', $userId)
+            ->where('friend_with_user_id', $friendId)
+            ->first();
+        if ($friendship) {
+            $friendship->delete();
+        }
+    }
+
 }
