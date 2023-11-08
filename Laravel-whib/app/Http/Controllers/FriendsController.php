@@ -33,4 +33,21 @@ class FriendsController extends Controller
         ]);
     }
 
+    public function DeleteFriend(Request $request){
+        
+        if(!$request->has('friend_id'))
+        {
+            return response()->json(['errors'=>"Invalid request"], 400);
+        }
+
+        $user = $this->_userAuthService->GetCurrentUserWithToken($request);
+
+        $result = $this->_friendsService->DeleteFriend($user['id'], $request['friend_id']);
+        if($result['success'] == false)
+        {
+            return response()->json(['errors'=>$result['errors']], 401);
+        }
+
+        return response()->json();
+    }
 }
