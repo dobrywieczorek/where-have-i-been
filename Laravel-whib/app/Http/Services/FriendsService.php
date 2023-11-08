@@ -28,4 +28,18 @@ class FriendsService implements IFriendsService
         return ['success' => true, 'friend' => $result];
     }
 
+    public function DeleteFriend($userId, $friendId)
+    {
+        if($userId == $friendId)
+        {
+            return ['success' => false, 'errors' => "User can't befriend himself"];
+        }
+
+        if(!$this->_friendsRepository->AlreadyFriends($userId, $friendId))
+        {
+            return ['success' => false, 'errors' => "User doenst have friend with this id"];
+        }
+        $this->_friendsRepository->DeleteFriend($userId, $friendId);
+        return ['success' => true];
+    }
 }
