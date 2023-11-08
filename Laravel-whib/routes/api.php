@@ -22,3 +22,5 @@ Route::post('/whoami', [UserAuthController::class, 'GetCurrentUser'])->middlewar
 Route::post('/edituser', [UserAuthController::class, 'EditUser'])->middleware('auth:sanctum');
 Route::post('/addfriend', [FriendsController::class, 'AddFriend'])->middleware('auth:sanctum');
 Route::post('/deletefriend', [FriendsController::class, 'DeleteFriend'])->middleware('auth:sanctum');
+Route::get('/getusersbyname', [UserAuthController::class, 'GetUsersByName']);
+Route::get('/getuserbyid', [UserAuthController::class, 'GetUserById']);
