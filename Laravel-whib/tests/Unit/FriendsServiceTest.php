@@ -79,4 +79,18 @@ class FriendsServiceTest extends TestCase
         $this->assertTrue($result['success']);
     }
 
+    public function test_DeleteFriend_SameIds_ReturnsSuccessFalse() : void
+    {
+        $friendsRepository = Mockery::mock(IFriendsRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $friendsRepository->shouldReceive('AlreadyFriends')->andReturn(true);
+        $friendsRepository->shouldReceive('DeleteFriend')->andReturn();
+
+        $friendsService = new FriendsService($friendsRepository);
+
+        $result = $friendsService->DeleteFriend(2, 2);
+        $this->assertFalse($result['success']);
+    }
+
 }
