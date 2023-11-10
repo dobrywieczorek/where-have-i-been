@@ -50,4 +50,11 @@ class FriendsController extends Controller
 
         return response()->json();
     }
+
+    public function GetUserFriends(Request $request){
+        $result = $this->_friendsService->GetUserFriends($request);
+        return response()->json([
+            'friends' => $result['friends']
+        ]);
+    }
 }
