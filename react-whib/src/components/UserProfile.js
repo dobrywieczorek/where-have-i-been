@@ -9,7 +9,7 @@ function UserProfile(){
             <div className='bottomContainer'>
                 <div className="nameHolder">
                     <h1 className="profile-name">Name</h1>
-                    <button>Add Friend</button>
+                    <button class="addFriend-btn" role="button"><span class="text">Add Friend</span></button>
                 </div>
                 <span className="profile-date">Joined: Date</span>
                 <p className="profile-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi fuga aliquam voluptate, nobis quaerat reprehenderit corrupti quo quisquam nostrum debitis nemo alias non. Magni nesciunt odit deserunt esse, quod inventore!</p>
