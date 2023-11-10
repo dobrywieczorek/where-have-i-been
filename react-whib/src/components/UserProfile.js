@@ -2,8 +2,10 @@ import '../css/UserProfile.css'
 function UserProfile(){
     return (
         <div className="UserProfile">
-            <div className="profile-bg"></div>
-            <div className="profile-img"><img></img></div>
+            <div className="topContainer">
+                <div className="profile-bg"></div>
+                <div className="profile-img"><img></img></div>
+            </div>
             <div className="nameHolder">
                 <h1 className="profile-name">Name</h1>
                 <button>Add Friend</button>
