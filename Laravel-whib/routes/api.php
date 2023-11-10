@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+use App\Http\Controllers\UserAuthController;
+Route::post('/register', [UserAuthController::class, 'RegisterUser']);
+Route::post('/login', [UserAuthController::class, 'LoginUser']);
+Route::post('/whoami', [UserAuthController::class, 'GetCurrentUser'])->middleware('auth:sanctum');
