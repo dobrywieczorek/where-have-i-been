@@ -1,4 +1,4 @@
-import './UserProfile.css'
+import '../css/UserProfile.css'
 function UserProfile(){
     return (
         <div class="UserProfile">
@@ -15,7 +15,7 @@ function UserProfile(){
             </section>
             <section>
                 <h2>Pins</h2>
-                <p>Pinanme1 LocationX...</p>
+                <p>Pin name1 LocationX...</p>
             </section>
         </div>
     );
