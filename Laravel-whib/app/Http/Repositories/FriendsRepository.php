@@ -31,4 +31,10 @@ class FriendsRepository implements IFriendsRepository
         $result = Friend::where('user_id', $userId)->where('friend_with_user_id', $friendId)->exists();
         return $result;
     }
+
+    public function GetUserFriends($userId)
+    {
+        $result = Friend::where('user_id', $userId)->with(['friendWithUser:id,name'])->get();
+        return $result;
+    }
 }
