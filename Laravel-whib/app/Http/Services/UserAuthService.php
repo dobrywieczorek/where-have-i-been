@@ -66,4 +66,28 @@ class UserAuthService implements IUserAuthService
 
         return ['success' => true, 'user' => $updatedUser];
     }
+
+    public function GetUsersByName($name)
+    {
+        if($name == null || $name == "")
+        {
+            return ['success' => false, 'errors' => "Invalid name"];
+        }
+
+        $users = $this->_userAuthRepository->GetUsersByName($name);
+
+        return ['success' => true, 'users' => $users];
+    }
+
+    public function GetUsersById($id)
+    {
+        if($id == null || $id == 0)
+        {
+            return ['success' => false, 'errors' => "Invalid id"];
+        }
+
+        $users = $this->_userAuthRepository->GetUserById($id);
+
+        return ['success' => true, 'users' => $users];
+    }
 }

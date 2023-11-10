@@ -10,4 +10,6 @@ interface IUserAuthRepository
     function GetUserWithEmail($email);
     function TryAuthUser($userDetails) : bool;
     function UpdateUser($user, $newUserData);
+    function GetUsersByName($name);
+    function GetUserById($id);
 }

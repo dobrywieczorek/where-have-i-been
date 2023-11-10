@@ -39,4 +39,12 @@ class UserAuthRepository implements IUserAuthRepository
         $user->save();
         return $user;
     }
+
+    public function GetUsersByName($name){
+        return User::where('name', $name)->get();
+    }
+
+    public function GetUserById($id){
+        return User::where('id', $id)->first();
+    }
 }
