@@ -14,13 +14,13 @@ class UserAuthService implements IUserAuthService
 {
     function __construct(private readonly IUserAuthRepository $_userAuthRepository){}
 
+    private $messages = [
+        'password.regex' => 'Password must contain one uppercase letter and a number',
+    ];
+
     public function AddUser($userData, $rules){
 
-        $messages = [
-            'password.regex' => 'Password must contain one uppercase letter and a number',
-        ];
-
-        $validator = Validator::make($userData->all(), $rules, $messages);
+        $validator = Validator::make($userData->all(), $rules, $this->messages);
 
         if ($validator->fails()) {
             return ['success' => false, 'errors' => $validator->errors()];
@@ -53,5 +53,17 @@ class UserAuthService implements IUserAuthService
         $user = $this->_userAuthRepository->GetUserWithEmail($userDetails['email']);    
         $token = $this->_userAuthRepository->AddUserToken($user);
         return ['success' => true, 'access_token' => $token];
+    }
+
+    public function UpdateUser($user, $newUserData, $rules){
+        $validator = Validator::make($newUserData, $rules, $this->messages);
+
+        if ($validator->fails()) {
+            return ['success' => false, 'errors' => $validator->errors()];
+        }
+
+        $updatedUser = $this->_userAuthRepository->UpdateUser($user, $newUserData);
+
+        return ['success' => true, 'user' => $updatedUser];
     }
 }
