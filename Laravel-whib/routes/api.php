@@ -24,3 +24,4 @@ Route::post('/addfriend', [FriendsController::class, 'AddFriend'])->middleware('
 Route::post('/deletefriend', [FriendsController::class, 'DeleteFriend'])->middleware('auth:sanctum');
 Route::get('/getusersbyname', [UserAuthController::class, 'GetUsersByName']);
 Route::get('/getuserbyid', [UserAuthController::class, 'GetUserById']);
+Route::get('/getuserfriends', [FriendsController::class, 'GetUserFriends'])->middleware('auth:sanctum');
