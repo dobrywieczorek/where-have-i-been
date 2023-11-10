@@ -207,5 +207,132 @@ class UserAuthServiceTest extends TestCase
         $this->assertFalse($result['success']);
     }
 
+    public function test_UpdateUser_CorrectData_ReturnsSuccessTrue() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('UpdateUser')->andReturn(['name' => 'John', 'email' => 'john@example.com']);
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $userData = [
+            'name' => 'John',
+            'password' => 'Password1', 
+            'description' => 'blabla'
+        ];
+
+        $rulesUpdate = [
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+        ];
+
+        $request = Request::create('/dummy', 'POST', $userData);
+
+        $result = $userAuthService->UpdateUser($request, $userData, $rulesUpdate);
+        $this->assertTrue($result['success']);
+    }
+
+    public function test_UpdateUser_InvalidData_ReturnsSuccessFalse() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('UpdateUser')->andReturn(['name' => 'John', 'email' => 'john@example.com']);
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $userData = [
+            'name' => 'John',
+            'password' => 'Password', 
+        ];
+
+        $rulesUpdate = [
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+        ];
+
+        $request = Request::create('/dummy', 'POST', $userData);
+
+        $result = $userAuthService->UpdateUser($request, $userData, $rulesUpdate);
+        $this->assertFalse($result['success']);
+    }
+
+    public function test_UpdateUser_MissingPassword_ReturnsSuccessFalse() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('UpdateUser')->andReturn(['name' => 'John', 'email' => 'john@example.com']);
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $userData = [
+            'name' => 'John',
+        ];
+
+        $rulesUpdate = [
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+        ];
+
+        $request = Request::create('/dummy', 'POST', $userData);
+
+        $result = $userAuthService->UpdateUser($request, $userData, $rulesUpdate);
+        $this->assertFalse($result['success']);
+    }
+
+
+    public function test_GetUsersByName_CorrectData_ReturnsSuccessTrue() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('GetUsersByName')->andReturn();
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $result = $userAuthService->GetUsersByName('bdawiud');
+        $this->assertTrue($result['success']);
+    }
+
+    public function test_GetUsersByName_IncorrectData_ReturnsSuccessFalse() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('GetUsersByName')->andReturn();
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $result = $userAuthService->GetUsersByName('');
+        $this->assertFalse($result['success']);
+    }
+
+    public function test_GetUsersById_CorrectData_ReturnsSuccessTrue() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('GetUserById')->andReturn();
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $result = $userAuthService->GetUsersById(2);
+        $this->assertTrue($result['success']);
+    }
+
+    public function test_GetUsersById_IncorrectData_ReturnsSuccessFalse() : void
+    {
+        $userAuthRepository = Mockery::mock(IUserAuthRepository::class);
+
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthRepository->shouldReceive('GetUserById')->andReturn();
+
+        $userAuthService = new UserAuthService($userAuthRepository);
+
+        $result = $userAuthService->GetUsersById(0);
+        $this->assertFalse($result['success']);
+    }
 }
 

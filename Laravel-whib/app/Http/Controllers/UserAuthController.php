@@ -64,4 +64,69 @@ class UserAuthController extends Controller
                 'token_type' => 'Bearer',
         ]);
     }
+
+    public function EditUser(Request $request)
+    {
+        if(!$request->has('name', 'password'))
+        {
+            return response()->json(['errors'=>"Invalid request"], 400);
+        }
+
+        $user = $this->_userAuthService->GetCurrentUserWithToken($request);
+
+        $editRules = [
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
+            'description' => 'string|max:255'
+        ];
+
+        $newUser = $this->_userAuthService->UpdateUser($user, $request->only(['name', 'description', 'password']), $editRules);
+
+        if($newUser['success'] == false){
+            return response()->json(['errors'=>$newUser['errors']], 401);
+        }
+
+        return response()->json([
+            'user' => $newUser
+        ]);
+
+    }
+
+    public function GetUsersByName(Request $request)
+    {
+        if(!$request->has('name'))
+        {
+            return response()->json(['errors'=>"Invalid request"], 400);
+        }
+
+        $users = $this->_userAuthService->GetUsersByName($request['name']);
+
+        if($users['success'] == false)
+        {
+            return response()->json(['errors'=>$users['errors']], 401);
+        }
+
+        return response()->json([
+            'users' => $users
+        ]);
+    }
+
+    public function GetUserById(Request $request)
+    {
+        if(!$request->has('id'))
+        {
+            return response()->json(['errors'=>"Invalid request"], 400);
+        }
+
+        $users = $this->_userAuthService->GetUsersById($request['id']);
+
+        if($users['success'] == false)
+        {
+            return response()->json(['errors'=>$users['errors']], 401);
+        }
+
+        return response()->json([
+            'users' => $users
+        ]);
+    }
 }

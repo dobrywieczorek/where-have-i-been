@@ -33,4 +33,18 @@ class UserAuthRepository implements IUserAuthRepository
     public function TryAuthUser($userDetails) : bool{
         return Auth::attempt($userDetails->only('email', 'password'));
     }
+    
+    public function UpdateUser($user, $newUserData){
+        $user->update($newUserData);
+        $user->save();
+        return $user;
+    }
+
+    public function GetUsersByName($name){
+        return User::where('name', $name)->get();
+    }
+
+    public function GetUserById($id){
+        return User::where('id', $id)->first();
+    }
 }
