@@ -4,11 +4,12 @@ namespace App\Http\Services;
 
 use App\Http\Interfaces\IFriendsRepository;
 use App\Http\Interfaces\IFriendsService;
+use App\Http\Interfaces\IUserAuthService;
 
 class FriendsService implements IFriendsService
 {
 
-    public function __construct(private readonly IFriendsRepository $_friendsRepository)
+    public function __construct(private readonly IFriendsRepository $_friendsRepository, private readonly IUserAuthService $_userAuthService)
     {
         
     }
@@ -52,5 +53,11 @@ class FriendsService implements IFriendsService
         }
         $this->_friendsRepository->DeleteFriend($userId, $friendId);
         return ['success' => true];
+    }
+
+    public function GetUserFriends($token){
+        $user = $this->_userAuthService->GetCurrentUserWithToken($token);
+        $friends = $this->_friendsRepository->GetUserFriends($user['id']);
+        return ['success' => true, 'friends' => $friends];
     }
 }
