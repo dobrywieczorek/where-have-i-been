@@ -25,4 +25,4 @@ Route::post('/deletefriend', [FriendsController::class, 'DeleteFriend'])->middle
 Route::get('/getusersbyname', [UserAuthController::class, 'GetUsersByName']);
 Route::get('/getuserbyid', [UserAuthController::class, 'GetUserById']);
 Route::get('/getuserfriends', [FriendsController::class, 'GetUserFriends'])->middleware('auth:sanctum');
-Route::get('/get-map-pins', [MapController::class, 'getMapPins']);
+Route::get('/get-map-pins', [MapController::class, 'getMapPins'])->middleware('auth:sanctum');

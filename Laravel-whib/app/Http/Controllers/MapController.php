@@ -2,20 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MapPin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class MapController extends Controller
 {
-    public function getMapPins()
+    /**
+     * Display a listing of the map pins.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
     {
-        try {
-            $mapPins = json_decode(Storage::get('map_pins.json'), true);
-        } catch (\Exception $e) {
-            // Handle the exception, e.g., log it or return an error response
-            return response()->json(['error' => 'Error retrieving map pins.'], 500);
-        }
+        $mapPins = MapPin::all();
 
-        return response()->json($mapPins);
+        return response()->json(['map_pins' => $mapPins]);
     }
+
+    /**
+     * Store a newly created map pin in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
 }
