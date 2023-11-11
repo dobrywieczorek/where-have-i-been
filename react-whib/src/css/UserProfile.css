@@ -4,6 +4,7 @@
 }
 .UserProfile{
     max-width: 600px;
+    position:absolute;
 }
 .profile-bg{
     width: calc(var(--profile-background-border-size)*2 + 50px + 100%)/*450px*/;
@@ -100,6 +101,13 @@
   
   section > h2{
     color:#6e44ff;
+  }
+  .settings-icon{
+    height: 30px;
+    position: absolute;
+    top:10px;
+    right:10px;
+    z-index: 1000;
   }
   /*@media (min-width: 768px) {
     .button-64 {
