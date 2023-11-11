@@ -9,7 +9,12 @@ class MapController extends Controller
 {
     public function getMapPins()
     {
-        $mapPins = json_decode(Storage::get('map_pins.json'), true);
+        try {
+            $mapPins = json_decode(Storage::get('map_pins.json'), true);
+        } catch (\Exception $e) {
+            // Handle the exception, e.g., log it or return an error response
+            return response()->json(['error' => 'Error retrieving map pins.'], 500);
+        }
 
         return response()->json($mapPins);
     }
