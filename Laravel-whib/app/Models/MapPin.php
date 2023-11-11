@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class MapPin extends Model
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, HasFactory;
     /**
      * The attributes that are mass assignable.
      *
