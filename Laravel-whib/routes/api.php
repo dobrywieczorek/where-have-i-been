@@ -3,7 +3,7 @@
 use App\Http\Controllers\FriendsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MapController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,3 +25,4 @@ Route::post('/deletefriend', [FriendsController::class, 'DeleteFriend'])->middle
 Route::get('/getusersbyname', [UserAuthController::class, 'GetUsersByName']);
 Route::get('/getuserbyid', [UserAuthController::class, 'GetUserById']);
 Route::get('/getuserfriends', [FriendsController::class, 'GetUserFriends'])->middleware('auth:sanctum');
+Route::get('/get-map-pins', [MapController::class, 'getMapPins']);

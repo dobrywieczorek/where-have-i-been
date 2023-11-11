@@ -1,0 +1,11 @@
+[
+    {
+        "latitude": 37.7749,
+        "longitude": -122.4194,
+        "name": "San Francisco",
+        "description": "A beautiful city by the bay.",
+        "when": "12.02.2023",
+        "userid": "01",
+        "istring": true
+    }
+]
