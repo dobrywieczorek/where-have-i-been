@@ -9,7 +9,7 @@ class MapController extends Controller
 {
     public function getMapPins()
     {
-        $mapPins = config('map_pins');
+        $mapPins = json_decode(Storage::get('map_pins.json'), true);
 
         return response()->json($mapPins);
     }
