@@ -11,6 +11,8 @@ return new class extends Migration
         Schema::create('map_pins', function (Blueprint $table) {
             $table->id();
             $table->string('pin_name');
+            $table->string('description')->nullable();
+            $table->boolean('favourite');
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
             $table->string('user_id');

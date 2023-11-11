@@ -20,6 +20,7 @@ class MapPin extends Model
     protected $fillable = [
         'pin_name',
         'description',
+        'favourite',
         'latitude',
         'longitude',
         'user_id',

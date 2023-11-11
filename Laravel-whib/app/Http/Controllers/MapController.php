@@ -31,6 +31,8 @@ class MapController extends Controller
     {
         $this->validate($request, [
             'pin_name' => 'required|string',
+            'description' => 'required|string',
+            'favourite' => 'required|bool',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'user_id' => "required|string",
@@ -66,6 +68,8 @@ class MapController extends Controller
     {
         $this->validate($request, [
             'pin_name' => 'string',
+            'description' => 'string',
+            'favourite' => 'bool',
             'latitude' => 'numeric',
             'longitude' => 'numeric',
             'user_id' => 'string',
