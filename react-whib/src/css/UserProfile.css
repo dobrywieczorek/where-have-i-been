@@ -2,6 +2,9 @@
     --profile-img-border-size: 8px;
     --profile-background-border-size: 12px;
 }
+.UserProfile{
+    max-width: 600px;
+}
 .profile-bg{
     width: calc(var(--profile-background-border-size)*2 + 50px + 100%)/*450px*/;
     height: 300px;
