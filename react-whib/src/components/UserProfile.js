@@ -3,7 +3,15 @@ import cog from '../img/cog.svg';
 function UserProfile(){
     return (
         <div className="UserProfile">
-            <img className='settings-icon' src={cog} alt="settings cog wheel"/>
+            <div className='settings-dropdown'>
+                <img className='settings-icon' src={cog} alt="settings cog wheel"/>
+                <ul className='settings-menu'>
+                    <li>Change name</li>
+                    <li>Change description</li>
+                    <li>Change email</li>
+                    <li>Change password</li>
+                </ul>
+            </div>
             <div className="topContainer">
                 <div className="profile-bg"></div>
                 <div className="profile-img"><img></img></div>

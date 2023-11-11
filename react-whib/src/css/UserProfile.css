@@ -3,7 +3,7 @@
     --profile-background-border-size: 12px;
 }
 .UserProfile{
-    max-width: 600px;
+    max-width: 100%;
     position:absolute;
 }
 .profile-bg{
@@ -21,6 +21,7 @@
     top: calc(var(--profile-background-border-size)*-1);
     left: calc(var(--profile-background-border-size)*-1 - 25px);
     margin:auto;
+    z-index: -10;
 }
 
 .profile-img{
@@ -108,6 +109,14 @@
     top:10px;
     right:10px;
     z-index: 1000;
+    cursor: pointer;
+  }
+  .settings-icon:hover .settings-menu{
+    visibility: visible;
+  }
+  .settings-menu{
+    visibility: hidden;
+    position: absolute;
   }
   /*@media (min-width: 768px) {
     .button-64 {
