@@ -1,6 +1,14 @@
 import '../css/UserProfile.css';
 import cog from '../img/cog.svg';
 function UserProfile(){
+    var currentUserID = 1;
+    var userID = 1;
+    const userData = {
+        username: "John",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed mauris eget eros dignissim eleifend. Proin vitae sem consequat, gravida sapien vitae, auctor erat. Sed accumsan at neque ac scelerisque. Etiam ut leo sed odio fringilla aliquam. Nam feugiat consequat tempor. Aliquam at gravida odio. Aliquam at mollis arcu, et vulputate eros. Nullam lectus justo, accumsan sagittis turpis aliquam, suscipit pharetra risus. Ut imperdiet augue in felis accumsan, vitae elementum lectus dapibus. Donec mattis rutrum libero sed dictum. Curabitur finibus eros ex, et lobortis est vestibulum tempor. Morbi congue eu quam eu condimentum. Nulla non diam nec elit hendrerit maximus. Quisque finibus lacus ac justo pellentesque placerat. Aliquam efficitur vel odio eget tempor. Curabitur pharetra enim sit amet euismod tempor. ",
+        password: "password123",
+        email: "john.smith@email.com"
+    }
     return (
         <div className="UserProfile">
             <div className='settings-dropdown'>
