@@ -14,11 +14,6 @@ function UserProfile(){
         categories: ["cat1", "cat2"],
         
     }
-    if(userID != currentUserID){
-        if (userData.friends.includes(userID)){
-            var buttonText = "Remove Friend"
-        }
-    }
     return (
         <div className="UserProfile">
             {userID == currentUserID &&
