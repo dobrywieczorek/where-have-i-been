@@ -111,12 +111,14 @@
     z-index: 1000;
     cursor: pointer;
   }
-  .settings-icon:hover .settings-menu{
+  .settings-dropdown:hover .settings-menu{
     visibility: visible;
   }
   .settings-menu{
     visibility: hidden;
     position: absolute;
+    top:20px;
+    right:10px;
   }
   /*@media (min-width: 768px) {
     .button-64 {
