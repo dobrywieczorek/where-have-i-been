@@ -4,7 +4,7 @@
 }
 .UserProfile{
     max-width: 100%;
-    position:absolute;
+    /*position:absolute;*/
 }
 .profile-bg{
     width: calc(var(--profile-background-border-size)*2 + 50px + 100%)/*450px*/;
@@ -120,10 +120,18 @@
     top:20px;
     right:10px;
   }
-  /*@media (min-width: 768px) {
-    .button-64 {
-      font-size: 24px;
-      min-width: 196px;
+  @media (min-width: 768px) {
+    .UserProfile {
+      margin:auto;
+
+    }
+    .profile-img{
+      width: 200px;
+      height: 200px;
+    }
+    .bottomContainer{
+      max-width: 1000px;
+      margin:auto;
     }
   }
-  */
+  
