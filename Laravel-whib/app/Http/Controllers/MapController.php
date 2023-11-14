@@ -10,27 +10,22 @@ use Illuminate\Validation\ValidationException;
 class MapController extends Controller
 {
     /**
-     * Display a listing of the map pins.
+     * Display a listing of the user's map pins, filtered by category and name.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
+        $userId = Auth::id();
+        $category = $request->input('category');
+        $name = $request->input('name');
 
-        $query = MapPin::where('user_id', $user->id);
-
-        // Filter by category if provided in the request
-        if ($request->has('category')) {
-            $query->where('category', $request->input('category'));
+        if ($category || $name) {
+            $mapPins = MapPin::getUserPinsByCategoryAndName($userId, $category, $name);
+        } else {
+            $mapPins = MapPin::getUserPins($userId);
         }
-
-        // Filter by pin name if provided in the request
-        if ($request->has('pin_name')) {
-            $query->where('pin_name', 'like', '%' . $request->input('pin_name') . '%');
-        }
-
-        $mapPins = $query->get();
 
         return response()->json(['map_pins' => $mapPins]);
     }
