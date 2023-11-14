@@ -7,8 +7,6 @@
     <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/database/migrations/2023_11_11_184445_create_map_pins_table.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +156,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;22-pins-database&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/SADOWKSKI_ZAJĘCIA&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Projekt&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -189,6 +187,7 @@
       <workItem from="1699693839676" duration="565000" />
       <workItem from="1699694424852" duration="1712000" />
       <workItem from="1699725266712" duration="4397000" />
+      <workItem from="1699965163892" duration="1326000" />
     </task>
     <servers />
   </component>

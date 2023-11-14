@@ -14,9 +14,23 @@ class MapController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $mapPins = MapPin::all();
+        $user = Auth::user();
+
+        $query = MapPin::where('user_id', $user->id);
+
+        // Filter by category if provided in the request
+        if ($request->has('category')) {
+            $query->where('category', $request->input('category'));
+        }
+
+        // Filter by pin name if provided in the request
+        if ($request->has('pin_name')) {
+            $query->where('pin_name', 'like', '%' . $request->input('pin_name') . '%');
+        }
+
+        $mapPins = $query->get();
 
         return response()->json(['map_pins' => $mapPins]);
     }
