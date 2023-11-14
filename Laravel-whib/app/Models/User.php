@@ -38,4 +38,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Friend::class, 'friend_with_user_id');
     }
+
+    /**
+     * Get the map pins for the user.
+     */
+    public function mapPins()
+    {
+        return $this->hasMany(MapPin::class);
+    }
 }

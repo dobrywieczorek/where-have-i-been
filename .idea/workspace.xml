@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/phpunit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,6 +143,9 @@
       <path value="$PROJECT_DIR$/Laravel-whib/vendor/graham-campbell/result-type" />
     </include_path>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -190,7 +192,7 @@
       <workItem from="1699693839676" duration="565000" />
       <workItem from="1699694424852" duration="1712000" />
       <workItem from="1699725266712" duration="4397000" />
-      <workItem from="1699965163892" duration="9255000" />
+      <workItem from="1699965163892" duration="13415000" />
     </task>
     <servers />
   </component>

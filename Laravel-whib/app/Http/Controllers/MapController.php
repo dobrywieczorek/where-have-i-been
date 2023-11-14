@@ -19,13 +19,9 @@ class MapController extends Controller
     {
         $userId = Auth::id();
         $category = $request->input('category');
-        $pin_name = $request->input('pin_name');
+        $pinName = $request->input('pin_name');
 
-        if ($category || $pin_name) {
-            $mapPins = MapPin::getUserPinsByCategoryAndName($userId, $category, $pin_name);
-        } else {
-            $mapPins = MapPin::getUserPins($userId);
-        }
+        $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName);
 
         return response()->json(['map_pins' => $mapPins]);
     }
@@ -38,18 +34,9 @@ class MapController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'pin_name' => 'required|string',
-            'description' => 'required|string',
-            'favourite' => 'required|bool',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'user_id' => "required|int",
-            'category' => "required|string",
-            // Add other validation rules as needed
-        ]);
+        $this->validateMapPin($request);
 
-        $mapPin = MapPin::create($request->all());
+        $mapPin = Auth::user()->mapPins()->create($request->all());
 
         return response()->json(['map_pin' => $mapPin], 201);
     }
@@ -72,19 +59,9 @@ class MapController extends Controller
      * @param  \App\Models\MapPin  $mapPin
      * @return \Illuminate\Http\JsonResponse
      */
-
     public function update(Request $request, MapPin $mapPin)
     {
-        $this->validate($request, [
-            'pin_name' => 'string',
-            'description' => 'string',
-            'favourite' => 'bool',
-            'latitude' => 'numeric',
-            'longitude' => 'numeric',
-            'user_id' => 'string',
-            'category' => 'string',
-            // Add other validation rules as needed
-        ]);
+        $this->validateMapPin($request);
 
         $mapPin->update($request->all());
 
@@ -97,11 +74,31 @@ class MapController extends Controller
      * @param  \App\Models\MapPin  $mapPin
      * @return \Illuminate\Http\JsonResponse
      */
-
     public function destroy(MapPin $mapPin)
     {
         $mapPin->delete();
 
         return response()->json(null, 204);
+    }
+
+    /**
+     * Validate the map pin data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    private function validateMapPin(Request $request)
+    {
+        $this->validate($request, [
+            'pin_name' => 'string|required',
+            'description' => 'string|required',
+            'favourite' => 'boolean|required',
+            'latitude' => 'numeric|required',
+            'longitude' => 'numeric|required',
+            'user_id' => 'int|required',
+            'category' => 'string|required',
+            // Add other validation rules as needed
+        ]);
     }
 }

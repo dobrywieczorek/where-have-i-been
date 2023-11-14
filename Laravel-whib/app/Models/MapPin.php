@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class MapPin extends Model
 {
     use HasApiTokens, Notifiable, HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,32 +33,22 @@ class MapPin extends Model
      * Get all map pins for a user.
      *
      * @param int $userId
+     * @param string|null $category
+     * @param string|null $pinName
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public static function getUserPins($userId)
+    public function getUserPins($userId, $category = null, $pinName = null)
     {
-        return self::where('user_id', $userId)->get();
-    }
+        $query = $this->where('user_id', $userId);
 
-    /**
-     * Get user pins by category and name.
-     *
-     * @param int    $userId
-     * @param string $category
-     * @param string $pin_name
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public static function getUserPinsByCategoryAndName($userId, $category, $pin_name)
-    {
-        return self::where('user_id', $userId)
-            ->when($category, function ($query) use ($category) {
-                return $query->where('category', $category);
-            })
-            ->when($pin_name, function ($query) use ($pin_name) {
-                return $query->where('pin_name', 'like', '%' . $pin_name . '%');
-            })
-            ->get();
+        if ($category) {
+            $query->where('category', $category);
+        }
+
+        if ($pinName) {
+            $query->where('pin_name', 'like', '%' . $pinName . '%');
+        }
+
+        return $query->get();
     }
 }
-
-
