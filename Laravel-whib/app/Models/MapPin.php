@@ -44,17 +44,17 @@ class MapPin extends Model
      *
      * @param int    $userId
      * @param string $category
-     * @param string $name
+     * @param string $pin_name
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public static function getUserPinsByCategoryAndName($userId, $category, $name)
+    public static function getUserPinsByCategoryAndName($userId, $category, $pin_name)
     {
         return self::where('user_id', $userId)
             ->when($category, function ($query) use ($category) {
                 return $query->where('category', $category);
             })
-            ->when($name, function ($query) use ($name) {
-                return $query->where('pin_name', 'like', '%' . $name . '%');
+            ->when($pin_name, function ($query) use ($pin_name) {
+                return $query->where('pin_name', 'like', '%' . $pin_name . '%');
             })
             ->get();
     }

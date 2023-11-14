@@ -19,10 +19,10 @@ class MapController extends Controller
     {
         $userId = Auth::id();
         $category = $request->input('category');
-        $name = $request->input('name');
+        $pin_name = $request->input('pin_name');
 
-        if ($category || $name) {
-            $mapPins = MapPin::getUserPinsByCategoryAndName($userId, $category, $name);
+        if ($category || $pin_name) {
+            $mapPins = MapPin::getUserPinsByCategoryAndName($userId, $category, $pin_name);
         } else {
             $mapPins = MapPin::getUserPins($userId);
         }
