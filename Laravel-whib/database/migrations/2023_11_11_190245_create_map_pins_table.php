@@ -15,7 +15,7 @@ return new class extends Migration
             $table->boolean('favourite');
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
-            $table->string('user_id');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('category');
             $table->timestamps();
         });
