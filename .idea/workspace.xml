@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/phpunit.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +19,9 @@
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/Laravel-whib/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -136,9 +142,6 @@
       <path value="$PROJECT_DIR$/Laravel-whib/vendor/tijsverkoyen/css-to-inline-styles" />
       <path value="$PROJECT_DIR$/Laravel-whib/vendor/dragonmantank/cron-expression" />
       <path value="$PROJECT_DIR$/Laravel-whib/vendor/graham-campbell/result-type" />
-      <path value="$PROJECT_DIR$/Laravel-whib/vendor/league/oauth1-client" />
-      <path value="$PROJECT_DIR$/Laravel-whib/vendor/laravel/socialite" />
-      <path value="$PROJECT_DIR$/Laravel-whib/vendor/laravel/ui" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -187,7 +190,7 @@
       <workItem from="1699693839676" duration="565000" />
       <workItem from="1699694424852" duration="1712000" />
       <workItem from="1699725266712" duration="4397000" />
-      <workItem from="1699965163892" duration="5878000" />
+      <workItem from="1699965163892" duration="9255000" />
     </task>
     <servers />
   </component>

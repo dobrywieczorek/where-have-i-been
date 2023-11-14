@@ -123,9 +123,6 @@
       <path value="$PROJECT_DIR$/Laravel-whib/vendor/tijsverkoyen/css-to-inline-styles" />
       <path value="$PROJECT_DIR$/Laravel-whib/vendor/dragonmantank/cron-expression" />
       <path value="$PROJECT_DIR$/Laravel-whib/vendor/graham-campbell/result-type" />
-      <path value="$PROJECT_DIR$/Laravel-whib/vendor/league/oauth1-client" />
-      <path value="$PROJECT_DIR$/Laravel-whib/vendor/laravel/socialite" />
-      <path value="$PROJECT_DIR$/Laravel-whib/vendor/laravel/ui" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

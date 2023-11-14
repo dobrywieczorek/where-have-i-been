@@ -44,7 +44,7 @@ class MapController extends Controller
             'favourite' => 'required|bool',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'user_id' => "required|string",
+            'user_id' => "required|int",
             'category' => "required|string",
             // Add other validation rules as needed
         ]);
