@@ -203,4 +203,20 @@ class UserAuthFeatureTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_LogoutUser_IncorrectData_500Response(): void
+    {
+        $registerResponse = $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $token = $registerResponse['access_token'];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . 123456,
+        ])->post('/api/logout',[]);
+
+        $response->assertStatus(500);
+    }
 }
