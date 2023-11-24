@@ -18,6 +18,7 @@ use App\Http\Controllers\MapController;
 use App\Http\Controllers\UserAuthController;
 Route::post('/register', [UserAuthController::class, 'RegisterUser']);
 Route::post('/login', [UserAuthController::class, 'LoginUser']);
+Route::post('/logout', [UserAuthController::class, 'LogoutUser'])->middleware('auth:sanctum');
 Route::post('/whoami', [UserAuthController::class, 'GetCurrentUser'])->middleware('auth:sanctum');
 Route::post('/edituser', [UserAuthController::class, 'EditUser'])->middleware('auth:sanctum');
 Route::post('/addfriend', [FriendsController::class, 'AddFriend'])->middleware('auth:sanctum');
