@@ -90,4 +90,8 @@ class UserAuthService implements IUserAuthService
 
         return ['success' => true, 'users' => $users];
     }
+
+    public function LogoutUser($request){
+        $this->_userAuthRepository->LogoutUser($request);
+    }
 }

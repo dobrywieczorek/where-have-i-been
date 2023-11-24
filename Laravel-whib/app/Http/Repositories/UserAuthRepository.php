@@ -47,4 +47,9 @@ class UserAuthRepository implements IUserAuthRepository
     public function GetUserById($id){
         return User::where('id', $id)->first();
     }
+
+    public function LogoutUser($request)
+    {
+        $request->user()->tokens()->delete();
+    }
 }
