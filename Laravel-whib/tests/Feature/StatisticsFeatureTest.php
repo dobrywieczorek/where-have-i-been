@@ -50,5 +50,18 @@ class StatisticsFeatureTest extends TestCase
         $this->assertEquals($responseData['numberOfFriends'], 1);
     }
 
+    public function test_GetUserStats_IdUserDoesntExist_400Response(): void
+    {
+        $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $response = $this->withHeaders([])->get('/api/getUserStats?user_id=2',[]);
+
+        $response->assertStatus(400);
+    }
+
 
 }
