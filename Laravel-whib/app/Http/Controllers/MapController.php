@@ -48,12 +48,12 @@ class MapController extends Controller
             // Create a new map pin associated with the authenticated user
             $mapPin = MapPin::create([
                 'pin_name' => $request->input('pin_name'),
+                'description' => $request->input('description'),
                 'favourite' => $request->input('favourite'),
                 'latitude' => $request->input('latitude'),
                 'longitude' => $request->input('longitude'),
                 'user_id' => $user->id,
                 'category' => $request->input('category'),
-                'description' => $request->input('description'),
                 // Add any other fields as needed
             ]);
 
@@ -96,6 +96,7 @@ class MapController extends Controller
      */
     public function update(Request $request, MapPin $mapPin)
     {
+        // Validate the request data
         $this->validate($request, [
             'pin_name' => 'required',
             'description' => 'nullable',
@@ -105,9 +106,26 @@ class MapController extends Controller
             'category' => 'required',
         ]);
 
-        $mapPin->update($request->all());
+        // Get the authenticated user
+        $user = auth()->user();
 
-        return response()->json(['map_pin' => $mapPin]);
+        // Check if the user is authenticated
+        if ($user) {
+            // Check if the map pin belongs to the authenticated user
+            if ($mapPin->user_id == $user->id) {
+                // Update the map pin with the request data
+                $mapPin->update($request->all());
+
+                // Return a JSON response with the updated map pin
+                return response()->json(['map_pin' => $mapPin]);
+            }
+
+            // If the map pin does not belong to the authenticated user, return a forbidden response
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+
+        // If the user is not authenticated, return an unauthorized response
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     /**

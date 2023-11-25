@@ -7,8 +7,6 @@
     <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -195,7 +193,7 @@
       <workItem from="1699965163892" duration="13867000" />
       <workItem from="1700385338647" duration="9000" />
       <workItem from="1700417029706" duration="2455000" />
-      <workItem from="1700918996501" duration="4883000" />
+      <workItem from="1700918996501" duration="7465000" />
     </task>
     <servers />
   </component>
