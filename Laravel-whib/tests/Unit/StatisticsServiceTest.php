@@ -28,4 +28,24 @@ class StatisticsServiceTest extends TestCase
         $result = $statisticsService->GetStatistics(6);
         $this->assertTrue($result['success']);
     }
+
+    public function test_GetStatistics_IdEqualsZero_ReturnsSuccessFalse()
+    {
+        $userAuthService = Mockery::mock(IUserAuthService::class);
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $userAuthService->shouldReceive('GetUsersById')->andReturn(['name' => 'John', 'email' => 'john@example.com', 'users' => [['name' => 'mateusz']]]);
+
+        $statisticsRepository = Mockery::mock(IStatisticsRepostiory::class);
+        /** @var \Mockery\Mock|IUserAuthRepository $userAuthRepository */
+        $statisticsRepository->shouldReceive('GetNumberOfUserPins')->andReturn(5);
+        $statisticsRepository->shouldReceive('GetNumberOfUserFriends')->andReturn(5);
+        $statisticsRepository->shouldReceive('GetNumberOfUsersObserving')->andReturn(5);
+        $statisticsRepository->shouldReceive('GetUserMostPopularPinCategory')->andReturn(5);
+
+        $statisticsService = new StatisticsService($statisticsRepository, $userAuthService);
+
+        $result = $statisticsService->GetStatistics(0);
+        $this->assertFalse($result['success']);
+    }
+
 }
