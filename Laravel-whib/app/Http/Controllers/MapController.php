@@ -34,11 +34,34 @@ class MapController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateMapPin($request);
+        $this->validate($request, [
+            'pin_name' => 'required',
+            'description' => 'nullable',
+            'favourite' => 'required|boolean',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'category' => 'required',
+        ]);
 
-        $mapPin = Auth::user()->mapPins()->create($request->all());
+        // Get the authenticated user
+        if ($user = auth()->user()) {
+            // Create a new map pin associated with the authenticated user
+            $mapPin = MapPin::create([
+                'pin_name' => $request->input('pin_name'),
+                'favourite' => $request->input('favourite'),
+                'latitude' => $request->input('latitude'),
+                'longitude' => $request->input('longitude'),
+                'user_id' => $user->id,
+                'category' => $request->input('category'),
+                'description' => $request->input('description'),
+                // Add any other fields as needed
+            ]);
 
-        return response()->json(['map_pin' => $mapPin], 201);
+            // Return a JSON response with the created map pin and a status code of 201 (Created)
+            return response()->json(['map_pin' => $mapPin], 201);
+        }
+        // If the user is not authenticated, you might want to handle this case accordingly
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     /**
@@ -49,7 +72,19 @@ class MapController extends Controller
      */
     public function show(MapPin $mapPin)
     {
-        return response()->json(['map_pin' => $mapPin]);
+        $user = auth()->user();
+
+        // Check if the user is authenticated
+        if ($user) {
+            // Retrieve map pins based on the authenticated user's ID
+            $mapPins = MapPin::where('user_id', $user->id)->get();
+
+            // Return a JSON response with the map pins
+            return response()->json(['map_pins' => $mapPins]);
+        }
+
+        // If the user is not authenticated, return an unauthorized response
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     /**
@@ -61,7 +96,14 @@ class MapController extends Controller
      */
     public function update(Request $request, MapPin $mapPin)
     {
-        $this->validateMapPin($request);
+        $this->validate($request, [
+            'pin_name' => 'required',
+            'description' => 'nullable',
+            'favourite' => 'required|boolean',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'category' => 'required',
+        ]);
 
         $mapPin->update($request->all());
 
@@ -81,24 +123,4 @@ class MapController extends Controller
         return response()->json(null, 204);
     }
 
-    /**
-     * Validate the map pin data.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return void
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    private function validateMapPin(Request $request)
-    {
-        $this->validate($request, [
-            'pin_name' => 'string|required',
-            'description' => 'string|required',
-            'favourite' => 'boolean|required',
-            'latitude' => 'numeric|required',
-            'longitude' => 'numeric|required',
-            'user_id' => 'int|required',
-            'category' => 'string|required',
-            // Add other validation rules as needed
-        ]);
-    }
 }

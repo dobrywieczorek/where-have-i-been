@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Friend;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -39,11 +40,8 @@ class User extends Authenticatable
         return $this->hasMany(Friend::class, 'friend_with_user_id');
     }
 
-    /**
-     * Get the map pins for the user.
-     */
-    public function mapPins()
+    public function mapPins(): HasMany
     {
-        return $this->hasMany(MapPin::class);
+        return $this->hasMany(MapPin::class)->latest(); // Orders by the latest map pin first
     }
 }
