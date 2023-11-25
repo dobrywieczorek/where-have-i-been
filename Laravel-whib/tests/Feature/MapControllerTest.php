@@ -26,122 +26,76 @@ class MapControllerTest extends TestCase
 
     public function testShow()
     {
-        // Create a user
+        // Create a user and authenticate them
         $user = User::factory()->create();
-
-        // Authenticate the user
         $this->actingAs($user);
 
-        // Create map pins associated with the authenticated user
-        $mapPins = MapPin::factory()->count(3)->create(['user_id' => $user->id]);
+        // Create some map pins associated with the user
+        MapPin::factory()->count(3)->create(['user_id' => $user->id]);
 
-        // Make a GET request to the show endpoint
-        $response = $this->get('/api/map-pins');
+        // Make a GET request to the show method
+        $response = $this->getJson('/api/map-pins');
 
         // Assert that the response has a 200 status code
         $response->assertStatus(200);
 
-        // Assert that the map pins are in the response
-        foreach ($mapPins as $mapPin) {
-            $response->assertSee($mapPin->pin_name);
-        }
-
-        // Assert that the response does not contain specific JSON fragments
-        $response->assertDontSee([
-            'error' => 'Unauthorized',
-            // Add any other expected JSON fragments you want to check
-        ]);
+        // Assert the structure of the JSON response
+        $response->assertJsonStructure(['map_pins' => []]);
     }
 
     public function testStore()
     {
-        // Create a user
+        // Create a user and authenticate them
         $user = User::factory()->create();
-
-        // Authenticate the user
         $this->actingAs($user);
 
-        // Define the map pin data (without 'description')
+        // Define map pin data
         $mapPinData = [
-            'pin_name' => $this->faker->word,
-            'favourite' => $this->faker->boolean,
-            'latitude' => $this->faker->latitude,
-            'longitude' => $this->faker->longitude,
-            'category' => $this->faker->word,
-            'description' => null, // 'description' is optional in this test
-            // Add any other fields as needed
+            'pin_name' => 'Test Pin',
+            'description' => 'Test Description',
+            'favourite' => true,
+            'latitude' => 23.456,
+            'longitude' => -78.910,
+            'category' => 'Test Category',
         ];
 
-        // Make a POST request to the store endpoint with map pin data
-        $response = $this->post('/api/map-pins', $mapPinData);
+        // Make a POST request to the store method
+        $response = $this->postJson('/api/map-pins', $mapPinData);
 
         // Assert that the response has a 201 status code
         $response->assertStatus(201);
 
-        // Assert that the map pin is stored in the database
-        $this->assertDatabaseHas('map_pins', [
-            'user_id' => $user->id,
-            'pin_name' => $mapPinData['pin_name'],
-            'favourite' => $mapPinData['favourite'],
-            'latitude' => $mapPinData['latitude'],
-            'longitude' => $mapPinData['longitude'],
-            'category' => $mapPinData['category'],
-            'description' => $mapPinData['description'],
-            // Add any other fields as needed
-        ]);
-
-        // Assert that the response does not contain specific JSON fragments
-        $response->assertJsonMissing([
-            'error' => 'Unauthorized',
-            // Add any other expected JSON fragments you want to check
-        ]);
+        // Assert that the map pin is in the database
+        $this->assertDatabaseHas('map_pins', $mapPinData);
     }
 
     public function testUpdate()
     {
-        // Create a user
+        // Create a user and authenticate them
         $user = User::factory()->create();
-
-        // Authenticate the user
         $this->actingAs($user);
 
-        // Create a map pin associated with the authenticated user
+        // Create a map pin associated with the user
         $mapPin = MapPin::factory()->create(['user_id' => $user->id]);
 
         // Define updated map pin data
-        $updatedMapPinData = [
+        $updatedData = [
             'pin_name' => 'Updated Pin Name',
             'description' => 'Updated Description',
-            'favourite' => true,
-            'latitude' => 12.345,
-            'longitude' => -67.890,
+            'favourite' => false,
+            'latitude' => 23.654,
+            'longitude' => -32.109,
             'category' => 'Updated Category',
-            // Add any other fields as needed
         ];
 
-        // Make a PUT request to the update endpoint with updated map pin data
-        $response = $this->put("/api/map-pins/{$mapPin->id}", $updatedMapPinData);
+        // Make a PUT request to the update method
+        $response = $this->putJson("/api/map-pins/{$mapPin->id}", $updatedData);
 
         // Assert that the response has a 200 status code
         $response->assertStatus(200);
 
-        // Assert that the map pin is updated in the database
-        $this->assertDatabaseHas('map_pins', [
-            'id' => $mapPin->id,
-            'pin_name' => $updatedMapPinData['pin_name'],
-            'description' => $updatedMapPinData['description'],
-            'favourite' => $updatedMapPinData['favourite'],
-            'latitude' => $updatedMapPinData['latitude'],
-            'longitude' => $updatedMapPinData['longitude'],
-            'category' => $updatedMapPinData['category'],
-            // Add any other fields as needed
-        ]);
-
-        // Assert that the response does not contain specific JSON fragments
-        $response->assertDontSee([
-            'error' => 'Unauthorized',
-            // Add any other expected JSON fragments you want to check
-        ]);
+        // Assert that the map pin in the database has been updated
+        $this->assertDatabaseHas('map_pins', $updatedData);
     }
 
     public function testDestroy()

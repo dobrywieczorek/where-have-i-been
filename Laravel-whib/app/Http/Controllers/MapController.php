@@ -34,6 +34,8 @@ class MapController extends Controller
      */
     public function store(Request $request)
     {
+        $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
+
         $this->validate($request, [
             'pin_name' => 'required',
             'description' => 'nullable',
@@ -70,8 +72,11 @@ class MapController extends Controller
      * @param  \App\Models\MapPin  $mapPin
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(MapPin $mapPin)
+    public function show(Request $request, MapPin $mapPin)
     {
+        $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
+
+
         $user = auth()->user();
 
         // Check if the user is authenticated
@@ -96,6 +101,9 @@ class MapController extends Controller
      */
     public function update(Request $request, MapPin $mapPin)
     {
+        $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
+
+
         // Validate the request data
         $this->validate($request, [
             'pin_name' => 'required',
