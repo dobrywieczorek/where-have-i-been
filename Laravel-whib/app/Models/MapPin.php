@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MapPin extends Model
 {
@@ -18,14 +19,13 @@ class MapPin extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'pin_name',
-        'description',
+    protected $fillable = ['pin_name',
         'favourite',
         'latitude',
         'longitude',
         'user_id',
         'category',
+        'description'
         // Add other attributes as needed
     ];
 
@@ -50,5 +50,9 @@ class MapPin extends Model
         }
 
         return $query->get();
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
