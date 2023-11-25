@@ -23,4 +23,12 @@ class StatisticsRepostiory implements IStatisticsRepostiory
         return Friend::where('friend_with_user_id', $user['id'])->count();
     }
 
+    public function GetUserMostPopularPinCategory($user)
+    {
+        return $user->mapPins()
+                    ->select('category', DB::raw('COUNT(*) as count'))
+                    ->groupBy('category')
+                    ->orderByDesc('count')
+                    ->first();
+    }
 }
