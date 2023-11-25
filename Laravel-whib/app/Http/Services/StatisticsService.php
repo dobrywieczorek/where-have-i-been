@@ -32,6 +32,6 @@ class StatisticsService implements IStatisticsService
                 'mostUsedPinCategory' => $mostUsedPinCategory
             ];
         }
-        return ['success' => false, 'errors' => 'No user with such token'];
+        return ['success' => false, 'errors' => 'No user with such id'];
     }
 }
