@@ -10,7 +10,13 @@ class StatisticsController extends Controller
 
     public function GetUserStatistics(Request $request)
     {
-        $statistics = $this->_statisticsService->GetStatistics($request);
+
+        if(!$request->has('user_id'))
+        {
+            return response()->json(['errors'=>"Invalid request"], 400);
+        }
+
+        $statistics = $this->_statisticsService->GetStatistics($request['user_id']);
         if($statistics['success']==true)
         {
             return response()->json([
@@ -20,6 +26,6 @@ class StatisticsController extends Controller
                 'mostUsedPinCategory' => $statistics['mostUsedPinCategory']
             ]);
         }
-        return response()->json(['errors'=>"Invalid request"], 400);
+        return response()->json(['errors'=>$statistics['errors']], 400);
     }
 }

@@ -9,9 +9,14 @@ class StatisticsService implements IStatisticsService
 {
     function __construct(private readonly IStatisticsRepostiory $_statisticsRepostiory, private readonly IUserAuthService $_userAuthService){}
 
-    public function GetStatistics($request)
+    public function GetStatistics($id)
     {
-        $user = $this->_userAuthService->GetCurrentUserWithToken($request);
+        if($id == null || $id == 0)
+        {
+            return ['success' => false, 'errors' => "Invalid id"];
+        }
+        
+        $user = $this->_userAuthService->GetUsersById($id)['users'];
         if($user)
         {
             $numberOfPins = $this->_statisticsRepostiory->GetNumberOfUserPins($user);
