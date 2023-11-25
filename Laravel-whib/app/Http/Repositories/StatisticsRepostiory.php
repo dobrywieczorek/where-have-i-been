@@ -13,4 +13,9 @@ class StatisticsRepostiory implements IStatisticsRepostiory
         return $user->mapPins()->count();
     }
 
+    public function GetNumberOfUserFriends($user)
+    {
+        return $user->friends()->count();
+    }
+
 }
