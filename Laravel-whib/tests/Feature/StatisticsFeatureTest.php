@@ -63,5 +63,17 @@ class StatisticsFeatureTest extends TestCase
         $response->assertStatus(400);
     }
 
+    public function test_GetUserStats_IdEqualsZero_400Response(): void
+    {
+        $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $response = $this->withHeaders([])->get('/api/getUserStats?user_id=0',[]);
+
+        $response->assertStatus(400);
+    }
 
 }
