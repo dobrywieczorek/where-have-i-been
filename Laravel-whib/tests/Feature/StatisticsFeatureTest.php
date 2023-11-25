@@ -21,5 +21,34 @@ class StatisticsFeatureTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_GetUserStats_CorrectData_ReturnCorrectNumberOfFriends(): void
+    {
+        $register1 = $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $register2 = $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john12@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $token = $register1['access_token'];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('/api/addfriend',[
+            'friend_id' => '2',
+        ]);
+
+        $response = $this->withHeaders([])->get('/api/getUserStats?user_id=1',[]);
+
+        $responseData = $response->decodeResponseJson();
+
+        $this->assertEquals($responseData['numberOfFriends'], 1);
+    }
+
 
 }
