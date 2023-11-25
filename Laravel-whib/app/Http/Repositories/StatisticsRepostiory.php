@@ -18,4 +18,9 @@ class StatisticsRepostiory implements IStatisticsRepostiory
         return $user->friends()->count();
     }
 
+    public function GetNumberOfUsersObserving($user)
+    {
+        return Friend::where('friend_with_user_id', $user['id'])->count();
+    }
+
 }
