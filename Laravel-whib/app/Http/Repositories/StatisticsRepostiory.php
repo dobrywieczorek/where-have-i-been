@@ -8,4 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class StatisticsRepostiory implements IStatisticsRepostiory
 {
+    public function GetNumberOfUserPins($user)
+    {
+        return $user->mapPins()->count();
+    }
+
 }
