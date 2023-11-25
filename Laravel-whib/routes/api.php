@@ -28,7 +28,7 @@ Route::get('/getusersbyname', [UserAuthController::class, 'GetUsersByName']);
 Route::get('/getuserbyid', [UserAuthController::class, 'GetUserById']);
 Route::get('/getuserfriends', [FriendsController::class, 'GetUserFriends'])->middleware('auth:sanctum');
 Route::get('/get-map-pins', [MapController::class, 'getMapPins'])->middleware('auth:sanctum');
-Route::get('/getUserStats', [StatisticsController::class, 'GetUserStatistics'])->middleware('auth:sanctum');
+Route::get('/getUserStats', [StatisticsController::class, 'GetUserStatistics']);
 
 // Map pins routing
 Route::middleware(['auth:sanctum'])->group(function () {
