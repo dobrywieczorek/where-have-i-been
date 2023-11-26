@@ -11,6 +11,10 @@ use App\Http\Interfaces\IUserAuthRepository;
 use App\Http\Repositories\FriendsRepository;
 use App\Http\Repositories\UserAuthRepository;
 use App\Http\Services\FriendsService;
+use App\Http\Services\StatisticsService;
+use App\Http\Interfaces\IStatisticsService;
+use App\Http\Repositories\StatisticsRepostiory;
+use App\Http\Interfaces\IStatisticsRepostiory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IUserAuthRepository::class, UserAuthRepository::class);
         $this->app->bind(IFriendsRepository::class, FriendsRepository::class);
         $this->app->bind(IFriendsService::class, FriendsService::class);
+        $this->app->bind(IStatisticsService::class, StatisticsService::class);
+        $this->app->bind(IStatisticsRepostiory::class, StatisticsRepostiory::class);
     }
 
     /**
