@@ -64,6 +64,12 @@ class UserAuthController extends Controller
                 'token_type' => 'Bearer',
         ]);
     }
+    
+    public function LogoutUser(Request $request)
+    {
+        $this->_userAuthService->LogoutUser($request);
+        return response()->json([]);
+    }
 
     public function EditUser(Request $request)
     {

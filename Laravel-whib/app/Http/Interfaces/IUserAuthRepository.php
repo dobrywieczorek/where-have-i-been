@@ -12,4 +12,5 @@ interface IUserAuthRepository
     function UpdateUser($user, $newUserData);
     function GetUsersByName($name);
     function GetUserById($id);
+    function LogoutUser($request);
 }
