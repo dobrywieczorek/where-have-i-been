@@ -33,8 +33,8 @@ Route::get('/getUserStats', [StatisticsController::class, 'GetUserStatistics']);
 // Map pins routing
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/map-pins', [MapController::class, 'index']);
-    Route::get('/map-pins/{mapPin}', [MapController::class, 'show']);
     Route::post('/map-pins', [MapController::class, 'store']);
+    Route::get('/map-pins/{mapPin}', [MapController::class, 'show']);
     Route::put('/map-pins/{mapPin}', [MapController::class, 'update']);
     Route::delete('/map-pins/{mapPin}', [MapController::class, 'destroy']);
 });

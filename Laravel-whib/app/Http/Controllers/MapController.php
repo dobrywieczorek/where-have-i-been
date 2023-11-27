@@ -136,9 +136,36 @@ class MapController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-    public function toggleFavourite(MapPin $mapPin)
+    /**
+     * Toggle the 'favourite' status of the specified map pin.
+     *
+     * @param \App\Models\MapPin $mapPin
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addFavourite(Request $request,MapPin $mapPin)
     {
+        $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
 
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Check if the user is authenticated
+        if ($user) {
+            // Check if the map pin belongs to the authenticated user
+            if ($mapPin->user_id == $user->id) {
+                // Toggle the 'favourite' status
+                $mapPin->update(['favourite' => !$mapPin->favourite]);
+
+                // Return a JSON response with the updated map pin
+                return response()->json(['map_pin' => $mapPin]);
+            }
+
+            // If the map pin does not belong to the authenticated user, return a forbidden response
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+
+        // If the user is not authenticated, return an unauthorized response
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     /**
