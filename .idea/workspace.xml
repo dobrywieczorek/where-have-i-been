@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +155,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;22-pins-database&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;40-favourite-place-backend&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/SADOWKSKI_ZAJĘCIA&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -194,7 +192,10 @@
       <workItem from="1700385338647" duration="9000" />
       <workItem from="1700417029706" duration="2455000" />
       <workItem from="1700918996501" duration="8010000" />
-      <workItem from="1700938918683" duration="3816000" />
+      <workItem from="1700938918683" duration="4376000" />
+      <workItem from="1700944040869" duration="16000" />
+      <workItem from="1700944065463" duration="41000" />
+      <workItem from="1701021672606" duration="2301000" />
     </task>
     <servers />
   </component>

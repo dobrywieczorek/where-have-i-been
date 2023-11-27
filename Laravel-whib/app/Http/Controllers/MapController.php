@@ -136,6 +136,11 @@ class MapController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
+    public function toggleFavourite(MapPin $mapPin)
+    {
+
+    }
+
     /**
      * Remove the specified map pin from storage.
      *
