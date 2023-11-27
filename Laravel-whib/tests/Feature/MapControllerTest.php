@@ -98,6 +98,28 @@ class MapControllerTest extends TestCase
         $this->assertDatabaseHas('map_pins', $updatedData);
     }
 
+    public function testAddFavourite()
+    {
+            // Create a user and authenticate them
+            $user = User::factory()->create();
+            $this->actingAs($user);
+
+            // Create a map pin associated with the user
+            $mapPin = MapPin::factory()->create(['user_id' => $user->id]);
+
+            // Make a PUT request to the toggleFavourite method
+            $response = $this->putJson("/api/map-pins/{$mapPin->id}/addFavourite");
+
+            // Assert that the response has a 200 status code
+            $response->assertStatus(200);
+
+            // Reload the map pin from the database to get the updated data
+            $mapPin->refresh();
+
+            // Assert that the 'favourite' status has been toggled
+            $this->assertNotEquals($mapPin->favourite, !$mapPin->favourite);
+    }
+
     public function testDestroy()
     {
         $user = User::factory()->create();
