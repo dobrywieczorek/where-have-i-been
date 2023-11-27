@@ -142,7 +142,7 @@ class MapController extends Controller
      * @param \App\Models\MapPin $mapPin
      * @return \Illuminate\Http\JsonResponse
      */
-    public function addFavourite(Request $request,MapPin $mapPin)
+    public function toggleFavourite(Request $request,MapPin $mapPin)
     {
         $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
 

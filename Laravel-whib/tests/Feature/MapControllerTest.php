@@ -108,7 +108,7 @@ class MapControllerTest extends TestCase
             $mapPin = MapPin::factory()->create(['user_id' => $user->id]);
 
             // Make a PUT request to the toggleFavourite method
-            $response = $this->putJson("/api/map-pins/{$mapPin->id}/addFavourite");
+            $response = $this->putJson("/api/map-pins/{$mapPin->id}/toggleFavourite");
 
             // Assert that the response has a 200 status code
             $response->assertStatus(200);
