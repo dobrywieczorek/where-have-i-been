@@ -15,7 +15,7 @@ class UserAuthController extends Controller
     function __construct(private readonly IUserAuthService $_userAuthService){}
 
     private array $rules = [
-        'name' => 'required|string|max:255',
+        'name' => 'required|string|max:255|regex:/^[A-Za-z0-9\s]+$/',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:8|regex:/^(?=.*[A-Z])(?=.*\d).+$/',
     ];

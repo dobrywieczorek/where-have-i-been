@@ -41,6 +41,17 @@ class UserAuthFeatureTest extends TestCase
         $response->assertStatus(400);
     }
 
+    public function test_RegisterRoute_InvalidName_400Response(): void
+    {
+        $response = $this->post('/api/register', [
+            'name' => '#John',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $response->assertStatus(400);
+    }
+
     public function test_LoginRoute_CorrectLogin_200Response(): void
     {
         $this->post('/api/register', [
