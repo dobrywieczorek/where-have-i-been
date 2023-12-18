@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "twitter_users",
+  "info": {
+    "singularName": "twitter-user",
+    "pluralName": "twitter-users",
+    "displayName": "TwitterUser",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "galleries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::gallery.gallery"
+    }
+  }
+}
