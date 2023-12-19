@@ -55,7 +55,8 @@ class UserAuthService implements IUserAuthService
         return ['success' => true, 'access_token' => $token];
     }
 
-    public function UpdateUser($user, $newUserData, $rules){
+    public function UpdateUser($user, $newUserData, $rules)
+    {
         $validator = Validator::make($newUserData, $rules, $this->messages);
 
         if ($validator->fails()) {
