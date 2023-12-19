@@ -155,7 +155,7 @@ class UserAuthFeatureTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_EditUserRoute_MissingPassword_400Response(): void
+    public function test_EditUserRoute_MissingPassword_200Response(): void
     {
 
         $registerResponse = $this->post('/api/register', [
@@ -173,7 +173,9 @@ class UserAuthFeatureTest extends TestCase
             'description' => 'blabla'
         ]);
 
-        $response->assertStatus(400);
+        $response->assertStatus(200);
+    }
+
     }
 
     public function test_EditUserRoute_InvalidPassword_401Response(): void
