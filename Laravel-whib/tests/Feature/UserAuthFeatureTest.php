@@ -155,7 +155,7 @@ class UserAuthFeatureTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_EditUserRoute_MissingPassword_400Response(): void
+    public function test_EditUserRoute_MissingPassword_200Response(): void
     {
 
         $registerResponse = $this->post('/api/register', [
@@ -173,7 +173,27 @@ class UserAuthFeatureTest extends TestCase
             'description' => 'blabla'
         ]);
 
-        $response->assertStatus(400);
+        $response->assertStatus(200);
+    }
+
+    public function test_EditUserRoute_OnlyName_200Response(): void
+    {
+
+        $registerResponse = $this->post('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john1@example.com',
+            'password' => 'Password123',
+        ]);
+
+        $token = $registerResponse['access_token'];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->post('/api/edituser',[
+            'name' => 'John Doe1',
+        ]);
+
+        $response->assertStatus(200);
     }
 
     public function test_EditUserRoute_InvalidPassword_401Response(): void
