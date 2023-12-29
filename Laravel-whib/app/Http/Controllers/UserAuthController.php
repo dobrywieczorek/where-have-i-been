@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\ErrorHandler\Debug;
+use Illuminate\Http\JsonResponse;
+use Laravel\Socialite\Facades\Socialite;
+use GuzzleHttp\Exception\ClientException;
 
 class UserAuthController extends Controller
 {
@@ -144,4 +147,32 @@ class UserAuthController extends Controller
         ]);
     }
 
+    public function handleAuthCallback(): JsonResponse
+    {
+        try {
+            /** @var SocialiteUser $socialiteUser */
+            $socialiteUser = Socialite::driver('google')->stateless()->user();
+        } catch (ClientException $e) {
+            return response()->json(['error' => 'Invalid credentials provided.'], 422);
+        }
+
+        $user = User::where('email', $socialiteUser->getEmail())->first();
+        if($user == null)
+        {
+            $user = User::query()
+            ->firstOrCreate(
+                [
+                    'email' => $socialiteUser->getEmail(),
+                    'name' => $socialiteUser->getName(),
+                    'password' => "Mati12345!"
+                ]
+            );
+        }
+
+        return response()->json([
+            'user' => $user,
+            'access_token' => $user->createToken('google-token')->plainTextToken,
+            'token_type' => 'Bearer',
+        ]);
+    }
 }
