@@ -133,4 +133,15 @@ class UserAuthController extends Controller
             'users' => $users
         ]);
     }
+    
+    public function redirectToAuth(): JsonResponse
+    {
+        return response()->json([
+            'url' => Socialite::driver('google')
+                         ->stateless()
+                         ->redirect()
+                         ->getTargetUrl(),
+        ]);
+    }
+
 }
