@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Interfaces\IUserAuthService;
 use App\Http\Interfaces\IUserAuthRepository;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use GuzzleHttp\Exception\ClientException;
 
 class UserAuthService implements IUserAuthService
 {
@@ -94,5 +96,27 @@ class UserAuthService implements IUserAuthService
 
     public function LogoutUser($request){
         $this->_userAuthRepository->LogoutUser($request);
+    }
+
+    public function LoginUserWithGoogle(){
+        try {
+            /** @var SocialiteUser $socialiteUser */
+            $socialiteUser = Socialite::driver('google')->stateless()->user();
+        } catch (ClientException $e) {
+            return ['success' => false, 'errors' => 'Invalid credentials provided.'];
+        }
+        
+        $user = $this->_userAuthRepository->GetUserByEmail($socialiteUser->getEmail());
+        if($user == null)
+        {
+           $user = $this->_userAuthRepository->CreateSocialUser($socialiteUser->getName(), $socialiteUser->getEmail());
+        }
+
+        return [
+            'success' => true,
+            'user' => $user,
+            'access_token' => $user->createToken('google-token')->plainTextToken,
+            'token_type' => 'Bearer',
+        ];
     }
 }

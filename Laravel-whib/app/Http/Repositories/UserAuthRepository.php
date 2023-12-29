@@ -52,4 +52,20 @@ class UserAuthRepository implements IUserAuthRepository
     {
         $request->user()->tokens()->delete();
     }
+
+    public function GetUserByEmail($email)
+    {
+       return User::where('email',$email)->first();
+    }
+
+    public function CreateSocialUser($name, $email)
+    {
+        return User::query()
+            ->firstOrCreate(
+                [
+                    'email' => $email,
+                    'name' => $name,
+                ]
+            );
+    }
 }

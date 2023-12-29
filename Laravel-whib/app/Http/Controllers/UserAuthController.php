@@ -149,30 +149,16 @@ class UserAuthController extends Controller
 
     public function handleAuthCallback(): JsonResponse
     {
-        try {
-            /** @var SocialiteUser $socialiteUser */
-            $socialiteUser = Socialite::driver('google')->stateless()->user();
-        } catch (ClientException $e) {
-            return response()->json(['error' => 'Invalid credentials provided.'], 422);
-        }
-
-        $user = User::where('email', $socialiteUser->getEmail())->first();
-        if($user == null)
+        $response = $this->_userAuthService->LoginUserWithGoogle();
+        if($response['success'] == false)
         {
-            $user = User::query()
-            ->firstOrCreate(
-                [
-                    'email' => $socialiteUser->getEmail(),
-                    'name' => $socialiteUser->getName(),
-                    'password' => "Mati12345!"
-                ]
-            );
+            return response()->json(['errors' => $response['errors']], 422);
         }
 
         return response()->json([
-            'user' => $user,
-            'access_token' => $user->createToken('google-token')->plainTextToken,
-            'token_type' => 'Bearer',
+            'user' => $response['user'],
+            'access_token' => $response['access_token'],
+            'token_type' => $response['token_type'],
         ]);
     }
 }
