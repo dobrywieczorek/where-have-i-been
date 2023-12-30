@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\ErrorHandler\Debug;
+use Illuminate\Http\JsonResponse;
+use Laravel\Socialite\Facades\Socialite;
+use GuzzleHttp\Exception\ClientException;
 
 class UserAuthController extends Controller
 {
@@ -131,6 +134,31 @@ class UserAuthController extends Controller
 
         return response()->json([
             'users' => $users
+        ]);
+    }
+    
+    public function RedirectToGoogleAuth()
+    {
+        return response()->json([
+            'url' => Socialite::driver('google')
+                         ->stateless()
+                         ->redirect()
+                         ->getTargetUrl(),
+        ]);
+    }
+
+    public function HandleGoogleAuthCallback()
+    {
+        $response = $this->_userAuthService->LoginUserWithGoogle();
+        if($response['success'] == false)
+        {
+            return response()->json(['errors' => $response['errors']], 422);
+        }
+
+        return response()->json([
+            'user' => $response['user'],
+            'access_token' => $response['access_token'],
+            'token_type' => $response['token_type'],
         ]);
     }
 }

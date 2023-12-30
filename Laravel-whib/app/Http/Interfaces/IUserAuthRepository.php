@@ -13,4 +13,6 @@ interface IUserAuthRepository
     function GetUsersByName($name);
     function GetUserById($id);
     function LogoutUser($request);
+    function GetUserByEmail($email);
+    function CreateSocialUser($name, $email);
 }

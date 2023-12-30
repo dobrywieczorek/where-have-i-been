@@ -30,6 +30,9 @@ Route::get('/getuserfriends', [FriendsController::class, 'GetUserFriends'])->mid
 Route::get('/get-map-pins', [MapController::class, 'getMapPins'])->middleware('auth:sanctum');
 Route::get('/getUserStats', [StatisticsController::class, 'GetUserStatistics']);
 
+Route::get('/auth', [UserAuthController::class, 'RedirectToGoogleAuth']);
+Route::get('/auth/callback', [UserAuthController::class, 'HandleGoogleAuthCallback']);
+
 // Map pins routing
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/map-pins', [MapController::class, 'index']);
