@@ -137,7 +137,7 @@ class UserAuthController extends Controller
         ]);
     }
     
-    public function redirectToAuth(): JsonResponse
+    public function RedirectToGoogleAuth()
     {
         return response()->json([
             'url' => Socialite::driver('google')
@@ -147,7 +147,7 @@ class UserAuthController extends Controller
         ]);
     }
 
-    public function handleAuthCallback(): JsonResponse
+    public function HandleGoogleAuthCallback()
     {
         $response = $this->_userAuthService->LoginUserWithGoogle();
         if($response['success'] == false)
