@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_11_2023_20_24__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_11_2023_20_24__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +156,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;40-favourite-place-backend&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;26-planning-trips-backend&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/SADOWKSKI_ZAJĘCIA&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -172,10 +168,6 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
-      <option name="pathToComposerJson" value="$PROJECT_DIR$/Laravel-whib/composer.json" />
-      <method v="2" />
-    </configuration>
     <configuration name="Main" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner configuration_file="$PROJECT_DIR$/Laravel-whib/phpunit.xml" scope="XML" use_alternative_configuration_file="true" />
       <method v="2" />
@@ -206,6 +198,15 @@
       <workItem from="1700944065463" duration="41000" />
       <workItem from="1701021672606" duration="2301000" />
       <workItem from="1701076815193" duration="1846000" />
+      <workItem from="1701083579446" duration="46000" />
+      <workItem from="1701114444691" duration="53000" />
+      <workItem from="1701114652622" duration="148000" />
+      <workItem from="1701122843666" duration="1116000" />
+      <workItem from="1701631109325" duration="626000" />
+      <workItem from="1702842042284" duration="623000" />
+      <workItem from="1704571551682" duration="1112000" />
+      <workItem from="1704630236106" duration="40000" />
+      <workItem from="1704701451640" duration="621000" />
     </task>
     <servers />
   </component>

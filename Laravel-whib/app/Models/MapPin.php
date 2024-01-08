@@ -55,4 +55,9 @@ class MapPin extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function trips(): BelongsToMany
+    {
+        return $this->belongsToMany(Trip::class);
+    }
 }
