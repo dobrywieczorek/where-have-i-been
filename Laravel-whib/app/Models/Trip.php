@@ -25,6 +25,6 @@ class Trip extends Model
 
     public function mapPins(): BelongsToMany
     {
-        return $this->belongsToMany(MapPin::class);
+        return $this->belongsToMany(MapPin::class, 'map_pin_trip');
     }
 }

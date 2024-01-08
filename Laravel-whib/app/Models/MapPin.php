@@ -26,7 +26,6 @@ class MapPin extends Model
         'user_id',
         'category',
         'description'
-        // Add other attributes as needed
     ];
 
     /**
