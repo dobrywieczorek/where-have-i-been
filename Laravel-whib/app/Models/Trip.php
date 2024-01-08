@@ -12,7 +12,11 @@ class Trip extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['trip_name', 'trip_description', 'user_id'];
+    protected $fillable = [
+        'trip_name',
+        'trip_description',
+        'user_id'
+    ];
 
     public function user(): BelongsTo
     {
