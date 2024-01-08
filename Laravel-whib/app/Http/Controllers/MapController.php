@@ -174,13 +174,11 @@ class MapController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function createTrip(Request $request)
+    public function organizeTrip(Request $request)
     {
         $user = auth()->user();
 
-        // Check if the user is authenticated
         if ($user) {
-            // Validate the request data
             $this->validate($request, [
                 'selected_pins' => 'required|array',
                 'selected_pins.*' => 'exists:map_pins,id,user_id,' . $user->id,
@@ -188,25 +186,19 @@ class MapController extends Controller
                 'trip_description' => 'nullable|string',
             ]);
 
-            // Retrieve the selected map pins
             $selectedPins = MapPin::whereIn('id', $request->input('selected_pins'))->get();
 
-            // Create a new trip associated with the authenticated user
             $trip = $user->trips()->create([
                 'trip_name' => $request->input('trip_name'),
                 'trip_description' => $request->input('trip_description'),
             ]);
 
-            // Attach the selected map pins to the trip
             $trip->mapPins()->attach($selectedPins);
 
-            // Return a JSON response with the created trip and associated map pins
             return response()->json(['trip' => $trip, 'map_pins' => $selectedPins], 201);
         }
 
-        // If the user is not authenticated, return an unauthorized response
         return response()->json(['error' => 'Unauthorized'], 401);
-
     }
 
     /**
