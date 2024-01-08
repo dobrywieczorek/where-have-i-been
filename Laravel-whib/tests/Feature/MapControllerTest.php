@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\MapPin;
 use App\Models\User;
+use App\Models\Trip;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -118,6 +119,40 @@ class MapControllerTest extends TestCase
 
             // Assert that the 'favourite' status has been toggled
             $this->assertNotEquals($mapPin->favourite, !$mapPin->favourite);
+    }
+
+    public function testOrganizeTrip()
+    {
+        // Create a user
+        $user = User::factory()->create();
+
+        // Create map pins
+        $mapPins = MapPin::factory(3)->create(['user_id' => $user->id]);
+
+        // Simulate authentication
+        $this->actingAs($user);
+
+        // Send a request to the organizeTrip endpoint
+        $response = $this->postJson('/api/map-pins/organize-trip', [
+            'selected_pins' => $mapPins->pluck('id')->toArray(),
+            'trip_name' => 'Test Trip',
+            'trip_description' => 'A test trip description',
+        ]);
+
+        // Assert the response status is 201 (Created)
+        $response->assertStatus(201);
+
+        // Assert the response contains the created trip and associated map pins
+        $response->assertJsonStructure(['trip', 'map_pins']);
+
+        // Assert the trip is stored in the database
+        $this->assertDatabaseHas('trips', [
+            'trip_name' => 'Test Trip',
+            'trip_description' => 'A test trip description',
+        ]);
+
+        // Assert the map pins are associated with the trip in the database
+        $this->assertEquals(3, Trip::first()->mapPins->count());
     }
 
     public function testDestroy()

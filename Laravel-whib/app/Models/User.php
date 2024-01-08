@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(MapPin::class)->latest(); // Orders by the latest map pin first
     }
+
+    public function trips(): HasMany
+    {
+        return $this->hasMany(Trip::class);
+    }
 }

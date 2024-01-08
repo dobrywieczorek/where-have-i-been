@@ -26,7 +26,6 @@ class MapPin extends Model
         'user_id',
         'category',
         'description'
-        // Add other attributes as needed
     ];
 
     /**
@@ -54,5 +53,10 @@ class MapPin extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function trips(): BelongsToMany
+    {
+        return $this->belongsToMany(Trip::class);
     }
 }
