@@ -25,7 +25,9 @@ class MapPin extends Model
         'longitude',
         'user_id',
         'category',
-        'description'
+        'description',
+        'IsTrip',
+        'TripDate'
     ];
 
     /**
