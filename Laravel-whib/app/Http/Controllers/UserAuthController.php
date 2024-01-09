@@ -161,4 +161,15 @@ class UserAuthController extends Controller
             'token_type' => $response['token_type'],
         ]);
     }
+
+    public function RedirectToFacebookAuth()
+    {
+        return response()->json([
+            'url' => Socialite::driver('facebook')
+                         ->stateless()
+                         ->redirect()
+                         ->getTargetUrl(),
+        ]);
+    }
+
 }
