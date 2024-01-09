@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/database/migrations/2023_11_11_190245_create_map_pins_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/database/migrations/2023_11_11_190245_create_map_pins_table.php" afterDir="false" />
-    </list>
+    <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
