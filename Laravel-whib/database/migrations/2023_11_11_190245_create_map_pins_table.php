@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('longitude', 11, 8);
             $table->foreignId('user_id')->constrained('users');
             $table->string('category');
+            $table->boolean('isTrip');
             $table->timestamps();
         });
     }
