@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Mockery;
 
 class MapControllerTest extends TestCase
 {
@@ -129,5 +130,25 @@ class MapControllerTest extends TestCase
 
         $response->assertStatus(204);
         $this->assertNull(MapPin::find($mapPin->id));
+    }
+    public function testShowUserPins()
+    {
+        // Create a user for testing
+        $user = User::factory()->create();
+
+        // Create map pins for the user
+        $mapPins = MapPin::factory()->count(3)->create(['user_id' => $user->id]);
+
+        // Make a GET request to the showUserPins endpoint
+        $response = $this->get("/map-pins/pins/{$user->id}");
+
+        // Assert that the response has a successful status code
+        $response->assertStatus(200);
+
+        // Decode the JSON response
+        $responseData = $response->json();
+
+        // Assert that the response contains the expected map pins
+        $this->assertCount(3, $responseData['map_pins']);
     }
 }

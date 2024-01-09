@@ -193,9 +193,7 @@ class MapController extends Controller
         // Retrieve map pins based on the specified user's ID
         $mapPins = MapPin::where('user_id', $userId)->get();
 
-        // Return a JSON response with the map pins
-        return response()->json(['map_pins' => $mapPins]);
+        // Simplify the response for testing purposes
+        return response()->json(['map_pins' => $mapPins->toArray()]);
     }
-
-
 }
