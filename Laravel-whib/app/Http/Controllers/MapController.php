@@ -23,7 +23,7 @@ class MapController extends Controller
         $pinName = $request->input('pin_name');
         $isTrip = $request->input('is_trip');
 
-        $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName, false);
+        $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName, $isTrip);
 
         return response()->json(['map_pins' => $mapPins]);
     }
