@@ -21,9 +21,8 @@ class MapController extends Controller
         $userId = Auth::id();
         $category = $request->input('category');
         $pinName = $request->input('pin_name');
-        $isTrip = $request->input('is_trip');
 
-        $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName, $isTrip);
+        $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName) ;
 
         return response()->json(['map_pins' => $mapPins]);
     }
@@ -103,7 +102,6 @@ class MapController extends Controller
     public function update(Request $request, MapPin $mapPin)
     {
         $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
-        $request['IsTrip'] = filter_var($request['IsTrip'], FILTER_VALIDATE_BOOLEAN);
 
         $this->validate($request, [
             'pin_name' => 'required',
@@ -112,8 +110,6 @@ class MapController extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
             'category' => 'required',
-            'IsTrip' => 'required|boolean',
-            'TripDate' => 'nullable|date',
         ]);
 
         $user = auth()->user();
