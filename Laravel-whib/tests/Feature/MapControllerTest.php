@@ -131,4 +131,91 @@ class MapControllerTest extends TestCase
         $response->assertStatus(204);
         $this->assertNull(MapPin::find($mapPin->id));
     }
+
+    /**
+     * Test adding a new trip pin.
+     *
+     * @return void
+     */
+    public function testAddTrip()
+    {
+        // Create a user using the factory
+        $user = User::factory()->create();
+
+        // Simulate authentication
+        $this->actingAs($user);
+
+        // Prepare data for the new trip pin
+        $requestData = [
+            'pin_name' => $this->faker->word,
+            'description' => $this->faker->sentence,
+            'favourite' => $this->faker->boolean,
+            'latitude' => $this->faker->latitude,
+            'longitude' => $this->faker->longitude,
+            'category' => $this->faker->word,
+            'IsTrip' => true,
+            'TripDate' => $this->faker->date,
+        ];
+
+        // Make a POST request to add a new trip pin
+        $response = $this->post('/api/map-pins/add-trip', $requestData);
+
+        // Assert the response status is 201 (Created)
+        $response->assertStatus(201);
+
+        // Assert the response structure
+        $response->assertJsonStructure(['map_pin' => ['id', 'pin_name', 'IsTrip', 'TripDate', 'created_at', 'updated_at']]);
+
+        // Assert the trip pin is stored in the database
+        $this->assertDatabaseHas('map_pins', [
+            'pin_name' => $requestData['pin_name'],
+            'IsTrip' => true,
+        ]);
+    }
+
+
+    public function testGetTrips()
+    {
+        // Create a user and authenticate them
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        // Create some map pins, some of which are marked as trips
+        $tripPin1 = MapPin::factory()->create(['user_id' => $user->id, 'IsTrip' => true]);
+        $tripPin2 = MapPin::factory()->create(['user_id' => $user->id, 'IsTrip' => true]);
+        $regularPin = MapPin::factory()->create(['user_id' => $user->id, 'IsTrip' => false]);
+
+        // Make a request to the get-trips endpoint
+        $response = $this->json('GET', '/api/map-pins/get-trips');
+
+        // Assert the response has a successful status code
+        $response->assertStatus(200);
+
+        // Assert the response contains the map pins that are trips
+        $response->assertJson([
+            'map_pins' => [
+                [
+                    'id' => $tripPin1->id,
+                    'IsTrip' => true,
+                    // Add other fields as needed
+                ],
+                [
+                    'id' => $tripPin2->id,
+                    'IsTrip' => true,
+                    // Add other fields as needed
+                ],
+            ],
+        ]);
+
+        // Assert the response does not contain regular pins
+        $response->assertJsonMissing([
+            'map_pins' => [
+                [
+                    'id' => $regularPin->id,
+                    'IsTrip' => false,
+                    // Add other fields as needed
+                ],
+            ],
+        ]);
+    }
 }

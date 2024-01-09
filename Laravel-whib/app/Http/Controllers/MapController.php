@@ -23,7 +23,7 @@ class MapController extends Controller
         $pinName = $request->input('pin_name');
         $isTrip = $request->input('is_trip');
 
-        $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName, $isTrip);
+        $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName, false);
 
         return response()->json(['map_pins' => $mapPins]);
     }
@@ -120,12 +120,10 @@ class MapController extends Controller
 
         if ($user) {
             if ($mapPin->user_id == $user->id) {
-                if (!$mapPin->IsTrip) {
-                    $mapPin->update($request->all());
-                    return response()->json(['map_pin' => $mapPin]);
-                } else {
-                    return response()->json(['error' => 'Forbidden: Cannot update trips.'], 403);
-                }
+
+                $mapPin->update($request->all());
+                return response()->json(['map_pin' => $mapPin]);
+
             }
             return response()->json(['error' => 'Forbidden'], 403);
         }
@@ -176,13 +174,10 @@ class MapController extends Controller
         $user = auth()->user();
 
         if ($user) {
-            if (!$mapPin->IsTrip) {
                 $mapPin->delete();
                 return response()->json(null, 204);
-            } else {
-                return response()->json(['error' => 'Forbidden: Cannot delete trips.'], 403);
             }
-        }
+
 
         return response()->json(['error' => 'Unauthorized'], 401);
     }
