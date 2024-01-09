@@ -188,16 +188,19 @@ class MapController extends Controller
     }
 
     /**
-     * Set trip to true
+     * Store a newly created trip pin in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function addTrip(Request $request)
     {
+        // Filtering the 'favourite' field to a boolean value
         $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
-        $request['IsTrip'] = true; // Set IsTrip to true for trips
+        // Setting the 'IsTrip' field to true for a new trip
+        $request['IsTrip'] = true;
 
+        // Validating input data
         $this->validate($request, [
             'pin_name' => 'required',
             'description' => 'nullable',
@@ -209,15 +212,49 @@ class MapController extends Controller
             'TripDate' => 'nullable|date',
         ]);
 
-        return response()->json(['map_pin' => $mapPin], 201);
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Check if the user is authenticated
+        if ($user) {
+            // Create a new map pin associated with the authenticated user
+            $mapPin = MapPin::create([
+                'pin_name' => $request->input('pin_name'),
+                'description' => $request->input('description'),
+                'favourite' => $request->input('favourite'),
+                'latitude' => $request->input('latitude'),
+                'longitude' => $request->input('longitude'),
+                'user_id' => $user->id,
+                'category' => $request->input('category'),
+                'IsTrip' => $request->input('IsTrip'),
+                'TripDate' => $request->input('TripDate'),
+            ]);
+
+            // Return a JSON response with the created map pin and a status code of 201 (Created)
+            return response()->json(['map_pin' => $mapPin], 201);
+        }
+
+        // If the user is not authenticated, you might want to handle this case accordingly
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
-    public function getTrips(Request $request)
+
+    /**
+     * Retrieve all map pins marked as trips for the authenticated user.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getTrips(Request $request,MapPin $mapPin)
     {
+        // Get the ID of the authenticated user
         $userId = Auth::id();
 
+        // Retrieve all map pins that are trips (IsTrip = true) for the authenticated user
         $mapPins = (new MapPin)->getUserPins($userId, null, null, true);
 
+        // Return a JSON response with the map pins
         return response()->json(['map_pins' => $mapPins]);
     }
+
 
 }
