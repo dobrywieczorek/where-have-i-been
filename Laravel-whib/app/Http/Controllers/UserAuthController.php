@@ -172,4 +172,18 @@ class UserAuthController extends Controller
         ]);
     }
 
+    public function HandleFacebookAuthCallback()
+    {
+        $response = $this->_userAuthService->LoginUserWithFacebook();
+        if($response['success'] == false)
+        {
+            return response()->json(['errors' => $response['errors']], 422);
+        }
+
+        return response()->json([
+            'user' => $response['user'],
+            'access_token' => $response['access_token'],
+            'token_type' => $response['token_type'],
+        ]);
+    }
 }
