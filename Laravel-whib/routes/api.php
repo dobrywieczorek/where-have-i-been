@@ -45,4 +45,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/map-pins/{mapPin}/toggleFavourite', [MapController::class, 'toggleFavourite']);
     Route::delete('/map-pins/{mapPin}', [MapController::class, 'destroy']);
     Route::get('/map-pins/pins/{userId}', [MapController::class, 'showUserPins']);
+
+    Route::post('/map-pins/addTrip', [MapController::class, 'addTrip']);
+    Route::get('/map-pins/getTrips/{userId}', [MapController::class, 'getTrips']);
 });

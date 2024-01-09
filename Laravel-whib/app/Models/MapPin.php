@@ -57,4 +57,9 @@ class MapPin extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getUserTrips($userId)
+    {
+        return $this->where('user_id', $userId)->where('IsTrip', true)->get();
+    }
 }
