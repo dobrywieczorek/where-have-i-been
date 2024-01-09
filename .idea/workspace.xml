@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/database/migrations/2023_11_11_190245_create_map_pins_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/database/migrations/2023_11_11_190245_create_map_pins_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +148,7 @@
     </include_path>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -208,7 +206,7 @@
       <workItem from="1701021672606" duration="2301000" />
       <workItem from="1701076815193" duration="1846000" />
       <workItem from="1704830171495" duration="13000" />
-      <workItem from="1704830185204" duration="3829000" />
+      <workItem from="1704830185204" duration="4783000" />
     </task>
     <servers />
   </component>

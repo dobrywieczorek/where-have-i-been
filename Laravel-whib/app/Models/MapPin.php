@@ -19,7 +19,8 @@ class MapPin extends Model
      *
      * @var array
      */
-    protected $fillable = ['pin_name',
+    protected $fillable = [
+        'pin_name',
         'favourite',
         'latitude',
         'longitude',

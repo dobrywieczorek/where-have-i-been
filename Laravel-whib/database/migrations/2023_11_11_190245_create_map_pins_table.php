@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('pin_name');
             $table->string('description')->nullable();
             $table->boolean('favourite');
+            $table->boolean('IsTrip')->default(false);
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
             $table->foreignId('user_id')->constrained('users');
