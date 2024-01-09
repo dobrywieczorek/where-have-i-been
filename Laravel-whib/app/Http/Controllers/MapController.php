@@ -196,4 +196,45 @@ class MapController extends Controller
         // Simplify the response for testing purposes
         return response()->json(['map_pins' => $mapPins->toArray()]);
     }
+
+    public function addTrip(Request $request)
+    {
+        $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
+        $request['IsTrip'] = filter_var($request['IsTrip'], FILTER_VALIDATE_BOOLEAN);
+
+        $this->validate($request, [
+            'pin_name' => 'required',
+            'description' => 'nullable',
+            'favourite' => 'required|boolean',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'category' => 'required',
+        ]);
+
+        $user = auth()->user();
+
+        if ($user) {
+            $mapPin = MapPin::create([
+                'pin_name' => $request->input('pin_name'),
+                'description' => $request->input('description'),
+                'favourite' => $request->input('favourite'),
+                'IsTrip' => true,
+                'latitude' => $request->input('latitude'),
+                'longitude' => $request->input('longitude'),
+                'user_id' => $user->id,
+                'category' => $request->input('category'),
+            ]);
+
+            return response()->json(['map_pin' => $mapPin], 201);
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    public function getTrips(Request $request, $userId)
+    {
+        $trips = (new MapPin)->getUserTrips($userId);
+
+        return response()->json(['trips' => $trips]);
+    }
 }
