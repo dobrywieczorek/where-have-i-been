@@ -197,12 +197,10 @@ class MapControllerTest extends TestCase
                 [
                     'id' => $tripPin1->id,
                     'IsTrip' => true,
-                    // Add other fields as needed
                 ],
                 [
                     'id' => $tripPin2->id,
                     'IsTrip' => true,
-                    // Add other fields as needed
                 ],
             ],
         ]);
@@ -213,7 +211,43 @@ class MapControllerTest extends TestCase
                 [
                     'id' => $regularPin->id,
                     'IsTrip' => false,
-                    // Add other fields as needed
+                ],
+            ],
+        ]);
+    }
+
+    public function testGetUserMapPins()
+    {
+        // Create two users
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+
+        // Create some map pins for each user
+        $mapPinUser1 = MapPin::factory()->create(['user_id' => $user1->id]);
+        $mapPinUser2 = MapPin::factory()->create(['user_id' => $user2->id]);
+
+        // Make a request to the getUserMapPins endpoint for $user1
+        $response = $this->json('GET', "/api/map-pins/user/{$user1->id}");
+
+        // Assert the response has a successful status code
+        $response->assertStatus(200);
+
+        // Assert the response contains the map pins for $user1
+        $response->assertJson([
+            'map_pins' => [
+                [
+                    'id' => $mapPinUser1->id,
+                    'user_id' => $user1->id,
+                ],
+            ],
+        ]);
+
+        // Assert the response does not contain map pins for $user2
+        $response->assertJsonMissing([
+            'map_pins' => [
+                [
+                    'id' => $mapPinUser2->id,
+                    'user_id' => $user2->id,
                 ],
             ],
         ]);

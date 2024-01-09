@@ -251,5 +251,19 @@ class MapController extends Controller
         return response()->json(['map_pins' => $mapPins]);
     }
 
+    /**
+     * Retrieve all map pins for a specific user.
+     *
+     * @param int $userId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUserMapPins(int $userId)
+    {
+        // Retrieve all map pins for the specified user
+        $mapPins = MapPin::where('user_id', $userId)->get();
 
+        // Return a JSON response with the map pins
+        return response()->json(['map_pins' => $mapPins]);
+    }
 }
+

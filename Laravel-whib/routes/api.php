@@ -43,4 +43,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/map-pins/{mapPin}', [MapController::class, 'destroy']);
     Route::post('/map-pins/add-trip', [MapController::class, 'addTrip']);
     Route::get('/map-pins/get-trips', [MapController::class, 'getTrips']);
+    Route::get('/map-pins/user/{userId}', [MapController::class, 'getUserMapPins']);
 });
