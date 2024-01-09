@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MapPin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -179,6 +180,32 @@ class MapController extends Controller
         $mapPin->delete();
 
         return response()->json(null, 204);
+    }
+
+    /**
+     * Display a listing of map pins for a specific user, filtered by category and name.
+     *
+     * @param int $userId
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUserMapPins($userId, Request $request)
+    {
+        // Check if the user exists
+        $user = User::find($userId);
+
+        if ($user) {
+            $category = $request->input('category');
+            $pinName = $request->input('pin_name');
+
+            // Use the getUserPins method from the MapPin model to retrieve map pins
+            $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName);
+
+            return response()->json(['map_pins' => $mapPins]);
+        }
+
+        // If the user does not exist, return a not found response
+        return response()->json(['error' => 'User not found'], 404);
     }
 
 }
