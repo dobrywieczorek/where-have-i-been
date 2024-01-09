@@ -38,7 +38,7 @@ class MapPin extends Model
      * @param string|null $pinName
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getUserPins($userId, $category = null, $pinName = null)
+    public function getUserPins($userId, $category = null, $pinName = null, $isTrip = null)
     {
         $query = $this->where('user_id', $userId);
 
@@ -48,6 +48,10 @@ class MapPin extends Model
 
         if ($pinName) {
             $query->where('pin_name', 'like', '%' . $pinName . '%');
+        }
+
+        if ($isTrip !== null) {
+            $query->where('IsTrip', $isTrip);
         }
 
         return $query->get();

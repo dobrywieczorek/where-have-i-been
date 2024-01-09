@@ -21,8 +21,9 @@ class MapController extends Controller
         $userId = Auth::id();
         $category = $request->input('category');
         $pinName = $request->input('pin_name');
+        $isTrip = $request->input('is_trip');
 
-        $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName);
+        $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName, $isTrip);
 
         return response()->json(['map_pins' => $mapPins]);
     }
@@ -57,7 +58,6 @@ class MapController extends Controller
                 'longitude' => $request->input('longitude'),
                 'user_id' => $user->id,
                 'category' => $request->input('category'),
-                // Add any other fields as needed
             ]);
 
             // Return a JSON response with the created map pin and a status code of 201 (Created)
@@ -103,9 +103,8 @@ class MapController extends Controller
     public function update(Request $request, MapPin $mapPin)
     {
         $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
+        $request['IsTrip'] = filter_var($request['IsTrip'], FILTER_VALIDATE_BOOLEAN);
 
-
-        // Validate the request data
         $this->validate($request, [
             'pin_name' => 'required',
             'description' => 'nullable',
@@ -113,27 +112,24 @@ class MapController extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
             'category' => 'required',
+            'IsTrip' => 'required|boolean',
+            'TripDate' => 'nullable|date',
         ]);
 
-        // Get the authenticated user
         $user = auth()->user();
 
-        // Check if the user is authenticated
         if ($user) {
-            // Check if the map pin belongs to the authenticated user
             if ($mapPin->user_id == $user->id) {
-                // Update the map pin with the request data
-                $mapPin->update($request->all());
-
-                // Return a JSON response with the updated map pin
-                return response()->json(['map_pin' => $mapPin]);
+                if (!$mapPin->IsTrip) {
+                    $mapPin->update($request->all());
+                    return response()->json(['map_pin' => $mapPin]);
+                } else {
+                    return response()->json(['error' => 'Forbidden: Cannot update trips.'], 403);
+                }
             }
-
-            // If the map pin does not belong to the authenticated user, return a forbidden response
             return response()->json(['error' => 'Forbidden'], 403);
         }
 
-        // If the user is not authenticated, return an unauthorized response
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
@@ -177,9 +173,51 @@ class MapController extends Controller
      */
     public function destroy(MapPin $mapPin)
     {
-        $mapPin->delete();
+        $user = auth()->user();
 
-        return response()->json(null, 204);
+        if ($user) {
+            if (!$mapPin->IsTrip) {
+                $mapPin->delete();
+                return response()->json(null, 204);
+            } else {
+                return response()->json(['error' => 'Forbidden: Cannot delete trips.'], 403);
+            }
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    /**
+     * Set trip to true
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addTrip(Request $request)
+    {
+        $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
+        $request['IsTrip'] = true; // Set IsTrip to true for trips
+
+        $this->validate($request, [
+            'pin_name' => 'required',
+            'description' => 'nullable',
+            'favourite' => 'required|boolean',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'category' => 'required',
+            'IsTrip' => 'required|boolean',
+            'TripDate' => 'nullable|date',
+        ]);
+
+        return response()->json(['map_pin' => $mapPin], 201);
+    }
+    public function getTrips(Request $request)
+    {
+        $userId = Auth::id();
+
+        $mapPins = (new MapPin)->getUserPins($userId, null, null, true);
+
+        return response()->json(['map_pins' => $mapPins]);
     }
 
 }
