@@ -13,4 +13,5 @@ interface IUserAuthService
     function GetUsersById($id);
     function LogoutUser($request);
     function LoginUserWithGoogle();
+    function LoginUserWithFacebook();
 }
