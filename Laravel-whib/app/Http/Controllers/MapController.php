@@ -183,29 +183,19 @@ class MapController extends Controller
     }
 
     /**
-     * Display a listing of map pins for a specific user, filtered by category and name.
+     * Display the specified user's map pins.
      *
-     * @param int $userId
-     * @param \Illuminate\Http\Request $request
+     * @param  int  $userId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getUserMapPins($userId, Request $request)
+    public function showUserPins($userId)
     {
-        // Check if the user exists
-        $user = User::find($userId);
+        // Retrieve map pins based on the specified user's ID
+        $mapPins = MapPin::where('user_id', $userId)->get();
 
-        if ($user) {
-            $category = $request->input('category');
-            $pinName = $request->input('pin_name');
-
-            // Use the getUserPins method from the MapPin model to retrieve map pins
-            $mapPins = (new MapPin)->getUserPins($userId, $category, $pinName);
-
-            return response()->json(['map_pins' => $mapPins]);
-        }
-
-        // If the user does not exist, return a not found response
-        return response()->json(['error' => 'User not found'], 404);
+        // Return a JSON response with the map pins
+        return response()->json(['map_pins' => $mapPins]);
     }
+
 
 }
