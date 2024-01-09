@@ -170,39 +170,6 @@ class MapController extends Controller
     }
 
     /**
-     * Create a new trip with selected map pins.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function organizeTrip(Request $request)
-    {
-        $user = auth()->user();
-
-        if ($user) {
-            $this->validate($request, [
-                'selected_pins' => 'required|array',
-                'selected_pins.*' => 'exists:map_pins,id,user_id,' . $user->id,
-                'trip_name' => 'required|string',
-                'trip_description' => 'nullable|string',
-            ]);
-
-            $selectedPins = MapPin::whereIn('id', $request->input('selected_pins'))->get();
-
-            $trip = $user->trips()->create([
-                'trip_name' => $request->input('trip_name'),
-                'trip_description' => $request->input('trip_description'),
-            ]);
-
-            $trip->mapPins()->attach($selectedPins);
-
-            return response()->json(['trip' => $trip, 'map_pins' => $selectedPins], 201);
-        }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
-    }
-
-    /**
      * Remove the specified map pin from storage.
      *
      * @param  \App\Models\MapPin  $mapPin

@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="" />
+    <list default="true" id="c90e04fc-c345-46d6-b964-7fb7682bab58" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Http/Controllers/MapController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Models/MapPin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/database/migrations/2023_11_11_190245_create_map_pins_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/database/migrations/2023_11_11_190245_create_map_pins_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/database/migrations/2024_01_08_084540_create_trips_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Laravel-whib/tests/Feature/MapControllerTest.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +25,11 @@
     </execution>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="old-state" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
