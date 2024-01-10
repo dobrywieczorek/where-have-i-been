@@ -41,7 +41,7 @@ class MapPin extends Model
      */
     public function getUserPins($userId, $category = null, $pinName = null)
     {
-        $query = $this->where('user_id', $userId);
+        $query = $this->where('user_id', $userId)->where('IsTrip', false);
 
         if ($category) {
             $query->where('category', $category);
