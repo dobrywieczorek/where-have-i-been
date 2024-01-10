@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MapPin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -181,4 +182,59 @@ class MapController extends Controller
         return response()->json(null, 204);
     }
 
+    /**
+     * Display the specified user's map pins.
+     *
+     * @param  int  $userId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function showUserPins($userId)
+    {
+        // Retrieve map pins based on the specified user's ID
+        $mapPins = MapPin::where('user_id', $userId)->get();
+
+        // Simplify the response for testing purposes
+        return response()->json(['map_pins' => $mapPins->toArray()]);
+    }
+
+    public function addTrip(Request $request)
+    {
+        $request['favourite'] = filter_var($request['favourite'], FILTER_VALIDATE_BOOLEAN);
+        $request['IsTrip'] = filter_var($request['IsTrip'], FILTER_VALIDATE_BOOLEAN);
+
+        $this->validate($request, [
+            'pin_name' => 'required',
+            'description' => 'nullable',
+            'favourite' => 'required|boolean',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'category' => 'required',
+        ]);
+
+        $user = auth()->user();
+
+        if ($user) {
+            $mapPin = MapPin::create([
+                'pin_name' => $request->input('pin_name'),
+                'description' => $request->input('description'),
+                'favourite' => $request->input('favourite'),
+                'IsTrip' => true,
+                'latitude' => $request->input('latitude'),
+                'longitude' => $request->input('longitude'),
+                'user_id' => $user->id,
+                'category' => $request->input('category'),
+            ]);
+
+            return response()->json(['map_pin' => $mapPin], 201);
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    public function getTrips(Request $request, $userId)
+    {
+        $trips = (new MapPin)->getUserTrips($userId);
+
+        return response()->json(['trips' => $trips]);
+    }
 }

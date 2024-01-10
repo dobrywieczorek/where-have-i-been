@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Mockery;
 
 class MapControllerTest extends TestCase
 {
@@ -129,5 +130,63 @@ class MapControllerTest extends TestCase
 
         $response->assertStatus(204);
         $this->assertNull(MapPin::find($mapPin->id));
+    }
+    public function testShowUserPins()
+    {
+        // Create a user for testing
+        $user = User::factory()->create();
+
+        // Create map pins for the user
+        $mapPins = MapPin::factory()->count(3)->create(['user_id' => $user->id]);
+
+        // Make a GET request to the showUserPins endpoint
+        $response = $this->get("/map-pins/pins/{$user->id}");
+
+        // Assert that the response has a successful status code
+        $response->assertStatus(200);
+
+        // Decode the JSON response
+        $responseData = $response->json();
+
+        // Assert that the response contains the expected map pins
+        $this->assertCount(3, $responseData['map_pins']);
+    }
+
+    public function testAddTrip()
+    {
+        // Create a user
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->postJson('/api/map-pins/addTrip', [
+            'pin_name' => 'Trip Pin',
+            'description' => 'Trip description',
+            'favourite' => true,
+            'latitude' => 40.7128,
+            'longitude' => -74.0060,
+            'category' => 'Trip',
+        ]);
+
+        $response->assertStatus(201);
+        $response->assertJsonStructure(['map_pin' => ['pin_name', 'description', 'favourite', 'latitude', 'longitude', 'category']]);
+    }
+
+    public function testGetTrips()
+    {
+        // Create a user
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        // Add a trip for the user
+        MapPin::factory()->create([
+            'user_id' => $user->id,
+            'IsTrip' => true,
+        ]);
+
+        // Make a request to get trips
+        $response = $this->getJson("/api/map-pins/getTrips/{$user->id}");
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['trips' => [['pin_name', 'description', 'favourite', 'latitude', 'longitude', 'category']]]);
     }
 }
