@@ -119,4 +119,26 @@ class UserAuthService implements IUserAuthService
             'token_type' => 'Bearer',
         ];
     }
+
+    public function LoginUserWithFacebook(){
+        try {
+            /** @var SocialiteUser $socialiteUser */
+            $socialiteUser = Socialite::driver('facebook')->stateless()->user();
+        } catch (ClientException $e) {
+            return ['success' => false, 'errors' => 'Invalid credentials provided.'];
+        }
+        
+        $user = $this->_userAuthRepository->GetUserByEmail($socialiteUser->getEmail());
+        if($user == null)
+        {
+           $user = $this->_userAuthRepository->CreateSocialUser($socialiteUser->getName(), $socialiteUser->getEmail());
+        }
+
+        return [
+            'success' => true,
+            'user' => $user,
+            'access_token' => $user->createToken('facebook-token')->plainTextToken,
+            'token_type' => 'Bearer',
+        ];
+    }
 }

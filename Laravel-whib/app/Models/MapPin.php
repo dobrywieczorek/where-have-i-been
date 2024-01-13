@@ -19,8 +19,10 @@ class MapPin extends Model
      *
      * @var array
      */
-    protected $fillable = ['pin_name',
+    protected $fillable = [
+        'pin_name',
         'favourite',
+        'IsTrip',
         'latitude',
         'longitude',
         'user_id',
@@ -39,7 +41,7 @@ class MapPin extends Model
      */
     public function getUserPins($userId, $category = null, $pinName = null)
     {
-        $query = $this->where('user_id', $userId);
+        $query = $this->where('user_id', $userId)->where('IsTrip', false);
 
         if ($category) {
             $query->where('category', $category);
@@ -54,5 +56,10 @@ class MapPin extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getUserTrips($userId)
+    {
+        return $this->where('user_id', $userId)->where('IsTrip', true)->get();
     }
 }

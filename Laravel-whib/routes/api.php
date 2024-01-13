@@ -33,6 +33,9 @@ Route::get('/getUserStats', [StatisticsController::class, 'GetUserStatistics']);
 Route::get('/auth', [UserAuthController::class, 'RedirectToGoogleAuth']);
 Route::get('/auth/callback', [UserAuthController::class, 'HandleGoogleAuthCallback']);
 
+Route::get('/authFacebook', [UserAuthController::class, 'RedirectToFacebookAuth']);
+Route::get('/auth/callbackFacebook', [UserAuthController::class, 'HandleFacebookAuthCallback']);
+
 // Map pins routing
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/map-pins', [MapController::class, 'index']);
@@ -41,4 +44,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/map-pins/{mapPin}', [MapController::class, 'update']);
     Route::put('/map-pins/{mapPin}/toggleFavourite', [MapController::class, 'toggleFavourite']);
     Route::delete('/map-pins/{mapPin}', [MapController::class, 'destroy']);
+    Route::get('/map-pins/pins/{userId}', [MapController::class, 'showUserPins']);
+
+    Route::post('/map-pins/addTrip', [MapController::class, 'addTrip']);
+    Route::get('/map-pins/getTrips/{userId}', [MapController::class, 'getTrips']);
 });
