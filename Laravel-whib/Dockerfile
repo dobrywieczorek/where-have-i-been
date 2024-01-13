@@ -25,7 +25,9 @@ COPY . .
 
 # Install Composer and dependencies
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install --ignore-platform-reqs --no-scripts --no-autoloader
+RUN composer install
+RUN chown -R www-data:www-data /var/www/html/storage
+RUN chmod -R 775 /var/www/html/storage
 
 # Copy Apache virtual host configuration
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
