@@ -23,13 +23,12 @@ WORKDIR /var/www/html
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 COPY composer.json composer.lock ./
 RUN composer install --no-scripts --no-autoloader
-
 # Copy existing application directory contents to the container
 COPY . .
 
 RUN composer dump-autoload --optimize
-RUN chown -R www-data:www-data /var/www/html/storage
-RUN chmod -R 775 /var/www/html/storage
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap
 # Copy Apache virtual host configuration
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
