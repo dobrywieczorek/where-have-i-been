@@ -20,15 +20,16 @@ RUN a2enmod rewrite
 # Set working directory
 WORKDIR /var/www/html
 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY composer.json composer.lock ./
+RUN composer install --no-scripts --no-autoloader
+
 # Copy existing application directory contents to the container
 COPY . .
 
-# Install Composer and dependencies
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install
+RUN composer dump-autoload --optimize
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chmod -R 775 /var/www/html/storage
-
 # Copy Apache virtual host configuration
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
